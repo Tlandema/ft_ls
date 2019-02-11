@@ -6,7 +6,7 @@
 /*   By: tlandema <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/09 12:44:01 by tlandema          #+#    #+#             */
-/*   Updated: 2019/02/10 13:29:10 by tlandema         ###   ########.fr       */
+/*   Updated: 2019/02/11 15:35:22 by tlandema         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,11 +19,23 @@
 # include <dirent.h>
 # include <pwd.h>
 # include <grp.h>
-# include "libft/libft.h"
+# include "../libft/includes/libft.h"
+
+typedef struct s_fil
+{
+	   int mode;
+	   char *name;
+	   char *user;
+	   char *group;
+	   long long size;
+	   char *time;
+	   int hard;
+	   struct s_fil *next;
+}               t_fil;
 
 typedef struct	s_yes
 {
-	char options[40];
+	t_fil *fil;
 }				t_yes;
 
 

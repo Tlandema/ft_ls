@@ -6,7 +6,7 @@
 /*   By: tlandema <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/09 11:37:09 by tlandema          #+#    #+#             */
-/*   Updated: 2019/02/10 13:40:23 by tlandema         ###   ########.fr       */
+/*   Updated: 2019/02/11 13:41:28 by tlandema         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,54 +15,59 @@
 #include <stdlib.h>
 #include "libft/includes/ft_printf.h"
 
-char *parse_options(char *av, char *truc)
+void	init(t_dir *dir)
 {
-	int i;
-	static int j = 0;
-
-	i = 1;
-	while (av[i])
-	{
-		if (ft_strchr("-ABCFGHLOPRSTUWabcdefghiklmnopqrstuwx1", av[i]) != NULL)
-		{
-			truc[j] = av[i];
-			j++;
-		}
-		i++;
-	}
-	return (truc);
+	dir->options = ft_memalloc(sizeof(int) * 5);
+	dir->test = ft_memalloc(sizeof(t_fil));
 }
 
-t_yes	*parser(int ac, char **av, t_yes *yes, int i)
+void	printy(int ac, char **av, t_dir *dir)
 {
-	char *truc;
+	DIR             *dirp;
+   	struct dirent   *dp;
+	char            *file_name;
 
-	truc = NULL;
-	ft_memset(truc, '\0', 40);
-	if (ac == 1)
-		return (yes);
-	else
+	if (dir->i < ac)
+		dirp = opendir(av[dir->i]);
+	else 
+		dirp = opendir(".");
+	while ((dp = readdir(dirp)) != NULL)
 	{
-		while (av[i])
-		{
-			parse_options(av[i], truc);
-			i++;
-		}
+		file_name = dp->d_name;
+		if (file_name[0] != '.')
+			ft_printf("%s ", file_name);
 	}
-	ft_putstr(truc);
-	return (yes);
+	ft_printf("\n");
+	closedir(dirp);
+	dir->i++;
+}
+
+void	parse_options(int ac, char **av, t_dir *dir)
+{
+	dir->i = 1;
+	while (dir->i < ac && !ft_strequ("--", av[dir->i]) && av[dir->i][0] == '-' 
+			&& !ft_strequ("-", av[dir->i]))
+	{
+		ft_strchr(av[dir->i], 'l') ? (dir->options[0] = 1) : 0;
+		ft_strchr(av[dir->i], 'R') ? (dir->options[1] = 1) : 0;
+		ft_strchr(av[dir->i], 'a') ? (dir->options[2] = 1) : 0;
+		ft_strchr(av[dir->i], 'r') ? (dir->options[3] = 1) : 0;
+		ft_strchr(av[dir->i], 't') ? (dir->options[4] = 1) : 0;
+		dir->i++;
+	}
+	if (ft_strequ("--", av[dir->i]))
+		dir->i++;
 }
 
 int		main(int ac, char **av)
 {
-	t_yes *yes;
+	t_dir *dir;
 
-	yes = NULL;
-	if (!(yes = (t_yes *)malloc(sizeof(t_yes))))
-		return (-1);
-	if (!(yes = parser(ac, av, yes, 1)))
-		return (-1);
-	ft_printf("%c\n", yes->options[0]);
-	free(yes);
+	dir = NULL;
+	dir = ft_memalloc(sizeof(t_dir));
+	init(dir);
+	parse_options(ac, av, dir);
+	printy(ac, av, dir);
+	free(dir);
 	return (0);
 }
