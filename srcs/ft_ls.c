@@ -1,31 +1,32 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   test.c                                             :+:      :+:    :+:   */
+/*   ft_ls.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: tlandema <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/01/13 13:55:14 by tlandema          #+#    #+#             */
-/*   Updated: 2019/02/12 15:25:20 by tlandema         ###   ########.fr       */
+/*   Created: 2019/02/09 11:37:09 by tlandema          #+#    #+#             */
+/*   Updated: 2019/02/12 23:28:43 by tlandema         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <dirent.h>
-#include <stdio.h>
-#include <string.h>
+#include "../includes/ft_ls.h"
 
-int	main(void)
+static void	init(t_dir *dir)
 {
-	DIR				*dirp;
-	struct dirent	*dp;
-	char			*file_name;
+	dir->options = ft_memalloc(sizeof(int) * 5);
+	dir->bra = NULL;
+}
 
-	dirp = opendir(".");
-	while ((dp = readdir(dirp)) != NULL)
-	{
-			file_name = dp->d_name;
-			printf("%s ", file_name);
-	}
-	closedir(dirp);
-	return 0;
+int		main(int ac, char **av)
+{
+	t_dir *dir;
+
+	dir = NULL;
+	dir = ft_memalloc(sizeof(t_dir));
+	init(dir);
+	ft_parse_options(ac, av, dir);
+	free(dir);
+	ft_putstr("\nbah yes, le programme a pas crash.\n");
+	return (0);
 }
