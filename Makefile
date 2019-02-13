@@ -6,7 +6,7 @@
 #    By: tlandema <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/11/07 12:04:00 by tlandema          #+#    #+#              #
-#    Updated: 2019/02/12 23:32:13 by tlandema         ###   ########.fr        #
+#    Updated: 2019/02/13 14:37:05 by tlandema         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -26,6 +26,7 @@ SRCS_PATH = srcs
 
 SRCS =	ft_ls.c \
 		branching.c \
+		directoring.c \
 		parsing.c \
 		printing.c \
 

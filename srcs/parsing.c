@@ -6,7 +6,7 @@
 /*   By: tlandema <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/12 22:26:50 by tlandema          #+#    #+#             */
-/*   Updated: 2019/02/12 23:28:54 by tlandema         ###   ########.fr       */
+/*   Updated: 2019/02/13 15:28:57 by tlandema         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,12 +29,15 @@ void    ft_parse_options(int ac, char **av, t_dir *dir)
 	}
 	if (ft_strequ("--", av[i]))
 		i++;
+	if (i == ac || i == ac - 1)
+		dir->one_dir = 1;
 	if (i == ac)
-		ft_name_branching(&dir->bra, dir, ".");
+		ft_name_branching(&dir->dir_bra, dir, ".");
 	ft_parse_branch(i, av, dir);
 	if (dir->bad_bra)
 		ft_print_bad(dir, dir->bad_bra);
-	//if (dir->file_bra)
-	//  do something about that
-	//if (dir->dir_bra)
+	if (dir->file_bra)
+		ft_print_file(dir, dir->file_bra);
+	if (dir->dir_bra)
+		ft_print_dir(dir, dir->dir_bra);
 }

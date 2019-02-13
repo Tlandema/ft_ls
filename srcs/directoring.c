@@ -1,35 +1,32 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_ls.c                                            :+:      :+:    :+:   */
+/*   directoring.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: tlandema <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/02/09 11:37:09 by tlandema          #+#    #+#             */
-/*   Updated: 2019/02/13 13:45:20 by tlandema         ###   ########.fr       */
+/*   Created: 2019/02/13 14:32:14 by tlandema          #+#    #+#             */
+/*   Updated: 2019/02/13 17:26:26 by tlandema         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/ft_ls.h"
 
-static void	init(t_dir *dir)
+void	ft_open_dir(t_dir *dir, char *dir_name)
 {
-	dir->options = ft_memalloc(sizeof(int) * 5);
-	dir->one_dir = 0;
-	dir->file_bra = NULL;
-	dir->bad_bra = NULL;
-	dir->dir_bra = NULL;
-}
+	struct dirent   *dp;
+	char            *file_name;
+	//t_bra			*test;
 
-int		main(int ac, char **av)
-{
-	t_dir *dir;
-
-	dir = NULL;
-	dir = ft_memalloc(sizeof(t_dir));
-	init(dir);
-	ft_parse_options(ac, av, dir);
-	free(dir);
-	ft_putstr("\nbah yes, le programme a pas crash.\n");
-	return (0);
+	if (dir->one_dir != 1)
+		ft_printf("%s:\n", dir_name);
+	dir->dirp = opendir(dir_name);
+	while ((dp = readdir(dir->dirp)) != NULL)
+	{
+		file_name = dp->d_name;
+		if (file_name[0] != '.')
+		ft_printf("%s ", file_name);
+	}
+	ft_putchar('\n');
+	closedir(dir->dirp);
 }

@@ -6,7 +6,7 @@
 /*   By: tlandema <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/09 12:44:01 by tlandema          #+#    #+#             */
-/*   Updated: 2019/02/12 23:30:06 by tlandema         ###   ########.fr       */
+/*   Updated: 2019/02/13 17:18:31 by tlandema         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,17 +34,22 @@ typedef struct		s_bra
 typedef struct	s_dir
 {
 	int			*options;
-	t_bra		*bra;
+	int			one_dir;
 	t_bra		*file_bra;
 	t_bra		*bad_bra;
 	t_bra		*dir_bra;
 	struct stat	file_info;
+	DIR			*dirp;
+	char		*path;
 }				t_dir;
 
 t_bra   *ft_create_branch(t_dir *dir, char *name);
 void    ft_name_branching(t_bra **root, t_dir *dir, char *name);
 void    ft_parse_branch(int i, char **av, t_dir *dir);
+void	ft_print_dir(t_dir *dir, t_bra *bad);
+void    ft_open_dir(t_dir *dir, char *dir_name);
 void    ft_print_bad(t_dir *dir, t_bra *bad);
+void    ft_print_file(t_dir *dir, t_bra *bad);
 void    ft_parse_options(int ac, char **av, t_dir *dir);
 
 #endif

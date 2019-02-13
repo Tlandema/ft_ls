@@ -6,7 +6,7 @@
 /*   By: tlandema <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/12 23:04:40 by tlandema          #+#    #+#             */
-/*   Updated: 2019/02/12 23:28:30 by tlandema         ###   ########.fr       */
+/*   Updated: 2019/02/13 17:22:20 by tlandema         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,14 +60,14 @@ void        ft_parse_branch(int i, char **av, t_dir *dir)
 		{
 			if (dir->options[4] != 1)
 				ft_name_branching(&dir->file_bra, dir, av[i]);
-		}
+		}	
+		if (!dir->file_info.st_mode)
+			ft_name_branching(&dir->bad_bra, dir, av[i]);
 		if (S_ISDIR(dir->file_info.st_mode))
 		{
 			if (dir->options[4] != 1)
 				ft_name_branching(&dir->dir_bra, dir, av[i]);
 		}
-		if (!dir->file_info.st_mode)
-			ft_name_branching(&dir->bad_bra, dir, av[i]);
 		dir->file_info.st_mode = 0;
 		i++;
 	}

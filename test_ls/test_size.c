@@ -1,35 +1,25 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_ls.c                                            :+:      :+:    :+:   */
+/*   test_size.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: tlandema <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/02/09 11:37:09 by tlandema          #+#    #+#             */
-/*   Updated: 2019/02/13 13:45:20 by tlandema         ###   ########.fr       */
+/*   Created: 2019/02/13 13:05:23 by tlandema          #+#    #+#             */
+/*   Updated: 2019/02/13 13:05:46 by tlandema         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/ft_ls.h"
+#include <sys/ioctl.h>
+#include <stdio.h>
+#include <unistd.h>
 
-static void	init(t_dir *dir)
+int main (int argc, char **argv)
 {
-	dir->options = ft_memalloc(sizeof(int) * 5);
-	dir->one_dir = 0;
-	dir->file_bra = NULL;
-	dir->bad_bra = NULL;
-	dir->dir_bra = NULL;
-}
+	struct winsize w;
+	ioctl(STDOUT_FILENO, TIOCGWINSZ, &w);
 
-int		main(int ac, char **av)
-{
-	t_dir *dir;
-
-	dir = NULL;
-	dir = ft_memalloc(sizeof(t_dir));
-	init(dir);
-	ft_parse_options(ac, av, dir);
-	free(dir);
-	ft_putstr("\nbah yes, le programme a pas crash.\n");
-	return (0);
+	printf ("lines %d\n", w.ws_row);
+	printf ("columns %d\n", w.ws_col);
+	return 0;  // make sure your main returns int
 }
