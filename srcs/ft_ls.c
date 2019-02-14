@@ -6,7 +6,7 @@
 /*   By: tlandema <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/09 11:37:09 by tlandema          #+#    #+#             */
-/*   Updated: 2019/02/13 13:45:20 by tlandema         ###   ########.fr       */
+/*   Updated: 2019/02/14 14:56:28 by tlandema         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@
 static void	init(t_dir *dir)
 {
 	dir->options = ft_memalloc(sizeof(int) * 5);
+	dir->path = ft_strnew(PATH_MAX);
 	dir->one_dir = 0;
 	dir->file_bra = NULL;
 	dir->bad_bra = NULL;

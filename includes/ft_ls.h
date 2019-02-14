@@ -6,7 +6,7 @@
 /*   By: tlandema <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/09 12:44:01 by tlandema          #+#    #+#             */
-/*   Updated: 2019/02/13 17:18:31 by tlandema         ###   ########.fr       */
+/*   Updated: 2019/02/14 16:19:48 by tlandema         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,7 @@
 # include "../libft/includes/libft.h"
 # include "../libft/includes/ft_printf.h"
 # include <stdlib.h>
+# include <limits.h>
 
 typedef struct		s_bra
 {
@@ -29,6 +30,8 @@ typedef struct		s_bra
 	struct s_bra	*left;
 	char			*name;
 	char			*display;
+	long long 		time;
+	long long		nano_time;
 }					t_bra;
 
 typedef struct	s_dir
@@ -45,6 +48,7 @@ typedef struct	s_dir
 
 t_bra   *ft_create_branch(t_dir *dir, char *name);
 void    ft_name_branching(t_bra **root, t_dir *dir, char *name);
+void    ft_date_branching(t_bra **root, t_dir *dir, char *name);
 void    ft_parse_branch(int i, char **av, t_dir *dir);
 void	ft_print_dir(t_dir *dir, t_bra *bad);
 void    ft_open_dir(t_dir *dir, char *dir_name);
