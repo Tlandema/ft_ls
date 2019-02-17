@@ -6,7 +6,7 @@
 /*   By: tlandema <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/13 14:55:34 by tlandema          #+#    #+#             */
-/*   Updated: 2019/02/11 18:00:16 by tlandema         ###   ########.fr       */
+/*   Updated: 2019/02/17 17:43:03 by tlandema         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,13 +46,20 @@ int main(void)
 			test->fil->group = grp->gr_name;
 			test->fil->size = file_info.st_size;
 			test->fil->time = ctime(&file_info.st_mtimespec.tv_sec);
-			//if (S_ISDIR(file_info.st_mode)) 
-			//	puts("|| directory");
-			//if (S_ISREG(file_info.st_mode)) 
-			//	puts("|| regular file");
-			//if (S_ISLNK(file_info.st_mode))
-			//	puts("|| symbolic link");
-			//printf("\n");
+			printf("name : %s ", test->fil->name);
+			printf("mode : %i ", test->fil->mode);
+			printf("hardlink : %i ", test->fil->hard);
+			printf("user : %s ", test->fil->user);
+			printf("group : %s ", test->fil->group);
+			printf("size : %lli ", test->fil->size);
+			printf("time : %s ", test->fil->time);
+			if (S_ISDIR(file_info.st_mode)) 
+				puts("|| directory");
+			if (S_ISREG(file_info.st_mode)) 
+				puts("|| regular file");
+			if (S_ISLNK(file_info.st_mode))
+				puts("|| symbolic link");
+			printf("\n");
 		}
 	}
 	return (0);

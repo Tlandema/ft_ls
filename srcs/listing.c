@@ -1,36 +1,31 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_ls.c                                            :+:      :+:    :+:   */
+/*   listing.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: tlandema <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/02/09 11:37:09 by tlandema          #+#    #+#             */
-/*   Updated: 2019/02/17 17:35:10 by tlandema         ###   ########.fr       */
+/*   Created: 2019/02/17 17:52:50 by tlandema          #+#    #+#             */
+/*   Updated: 2019/02/17 18:39:41 by tlandema         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/ft_ls.h"
 
-static void	init(t_dir *dir)
+char	*ft_listing(t_dir *dir, char *name)
 {
-	dir->options = ft_memalloc(sizeof(int) * 5);
-	dir->path = ft_strnew(PATH_MAX);
-	dir->one_dir = 0;
-	dir->file_bra = NULL;
-	dir->bad_bra = NULL;
-	dir->dir_bra = NULL;
-}
+	//struct passwd	*pwd;
+	//struct group	*grp;
+	char 			*test;
 
-int		main(int ac, char **av)
-{
-	t_dir *dir;
-
-	dir = NULL;
-	dir = ft_memalloc(sizeof(t_dir));
-	init(dir);
-	ft_parse_options(ac, av, dir);
-	free(dir);
-	ft_putstr("\nbah yes, le programme a pas crash.\n");
-	return (0);
+	name = NULL;
+	test = ft_memalloc(sizeof(char) * 64);
+	if (S_ISDIR(dir->file_info.st_mode))
+		test[0] = 'd';
+	else if (S_ISLNK(dir->file_info.st_mode))
+		test[0] = 'l';
+	else
+		test[0] = '-';
+	ft_putchar(test[0]);
+	return (test);
 }
