@@ -6,7 +6,7 @@
 /*   By: tlandema <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/13 14:55:34 by tlandema          #+#    #+#             */
-/*   Updated: 2019/02/17 17:43:03 by tlandema         ###   ########.fr       */
+/*   Updated: 2019/02/18 16:07:45 by tlandema         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,7 @@ int main(void)
 	struct passwd *pwd;
 	struct group *grp;
 	char *opt_tab;
+	char *truc;
 	t_yes *test;
 
 	test = ft_memalloc(sizeof(t_yes));
@@ -45,14 +46,18 @@ int main(void)
 			grp = getgrgid(file_info.st_gid);
 			test->fil->group = grp->gr_name;
 			test->fil->size = file_info.st_size;
-			test->fil->time = ctime(&file_info.st_mtimespec.tv_sec);
+			truc = ctime(&file_info.st_mtimespec.tv_sec);
+			truc = &truc[4];
+			truc = ft_strrev(truc);
+			truc = &truc[6];
+			truc = ft_strrev(truc);
 			printf("name : %s ", test->fil->name);
 			printf("mode : %i ", test->fil->mode);
 			printf("hardlink : %i ", test->fil->hard);
 			printf("user : %s ", test->fil->user);
 			printf("group : %s ", test->fil->group);
 			printf("size : %lli ", test->fil->size);
-			printf("time : %s ", test->fil->time);
+			printf("time : %s ", truc);
 			if (S_ISDIR(file_info.st_mode)) 
 				puts("|| directory");
 			if (S_ISREG(file_info.st_mode)) 

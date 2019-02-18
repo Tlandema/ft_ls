@@ -6,7 +6,7 @@
 /*   By: tlandema <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/09 12:44:01 by tlandema          #+#    #+#             */
-/*   Updated: 2019/02/17 18:37:42 by tlandema         ###   ########.fr       */
+/*   Updated: 2019/02/18 16:09:59 by tlandema         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,7 @@ typedef struct	s_dir
 	char		*path;
 }				t_dir;
 
-char	*ft_listing(t_dir *dir, char *name);
+char	*ft_listing(t_dir *dir, char *name, int i);
 t_bra   *ft_create_branch(t_dir *dir, char *name);
 void    ft_name_branching(t_bra **root, t_dir *dir, char *name);
 void    ft_date_branching(t_bra **root, t_dir *dir, char *name);

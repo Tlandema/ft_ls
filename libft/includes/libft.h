@@ -6,7 +6,7 @@
 /*   By: tlandema <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/11/07 17:04:57 by tlandema          #+#    #+#             */
-/*   Updated: 2019/02/13 13:50:37 by tlandema         ###   ########.fr       */
+/*   Updated: 2019/02/18 15:04:03 by tlandema         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,7 @@ int					get_next_line(const int fd, char **line);
 size_t				ft_strlen(const char *s);
 int					ft_strcmp(const char *s1, const char *s2);
 int					ft_strncmp(const char *s1, const char *s2, size_t n);
+char				*ft_strrev(char *str);
 
 void				ft_putnstr(char const *s, int n);
 void				ft_big_putnbr(long long int n);
