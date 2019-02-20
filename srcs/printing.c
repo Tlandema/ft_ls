@@ -6,7 +6,7 @@
 /*   By: tlandema <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/12 22:59:39 by tlandema          #+#    #+#             */
-/*   Updated: 2019/02/18 15:25:28 by tlandema         ###   ########.fr       */
+/*   Updated: 2019/02/20 16:46:50 by tlandema         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,8 +39,11 @@ void	ft_print_file(t_dir *dir, t_bra *file)
 	{
 		if (file->right)
 			ft_print_file(dir, file->right);
-		ft_printf("%s ", file->list);
+		if (dir->options[0] == 1)
+			ft_printf("%s ", file->list);
 		ft_printf("%s ", file->display);
+		if (dir->options[0] == 1)
+			ft_putchar('\n');
 		if (file->left)
 			ft_print_file(dir, file->left);
 	}

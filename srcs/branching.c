@@ -6,7 +6,7 @@
 /*   By: tlandema <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/12 23:04:40 by tlandema          #+#    #+#             */
-/*   Updated: 2019/02/18 16:09:34 by tlandema         ###   ########.fr       */
+/*   Updated: 2019/02/20 16:54:30 by tlandema         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,8 @@ t_bra       *ft_create_branch(t_dir *dir, char *name)
 		bad = ft_strjoin(bad, ": No such file or directory\n");
 		branch->display = bad;
 	}
-	//if (S_ISREG(dir->file_info.st_mode) || S_ISLNK(dir->file_info.st_mode))
+	if (S_ISREG(dir->file_info.st_mode) || S_ISLNK(dir->file_info.st_mode)
+		|| S_ISDIR(dir->file_info.st_mode))
 		branch->display = branch->name;
 	return (branch);
 }
@@ -109,5 +110,3 @@ void        ft_parse_branch(int i, char **av, t_dir *dir)
 		i++;
 	}
 }
-
-
