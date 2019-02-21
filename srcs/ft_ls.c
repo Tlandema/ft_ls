@@ -6,11 +6,23 @@
 /*   By: tlandema <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/09 11:37:09 by tlandema          #+#    #+#             */
-/*   Updated: 2019/02/21 06:59:30 by tlandema         ###   ########.fr       */
+/*   Updated: 2019/02/21 08:00:18 by tlandema         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/ft_ls.h"
+
+void		ft_first_dir(t_dir *dir, t_bra *dir_bra)
+{
+	if (!dir->bad_bra && !dir->file_bra)
+		dir->first_stuff = '1';
+	if (dir_bra->left)
+		ft_first_dir(dir, dir_bra->left);
+	dir->first_dir = ft_strdup(dir_bra->name);
+	if (dir_bra->right)
+		if (ft_strequ(dir->first_dir, dir_bra->right->name))
+			dir->first_dir = NULL;
+}
 
 void		ft_free(t_bra *to_f)
 {
