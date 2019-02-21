@@ -6,27 +6,29 @@
 /*   By: tlandema <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/12 22:26:50 by tlandema          #+#    #+#             */
-/*   Updated: 2019/02/14 16:41:08 by tlandema         ###   ########.fr       */
+/*   Updated: 2019/02/20 23:49:47 by tlandema         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/ft_ls.h"
 
-void    ft_parse_options(int ac, char **av, t_dir *dir)
+static void	ft_parse_helper(int i, char **av, t_dir *dir)
+{
+	ft_strchr(av[i], 'l') ? (dir->options[0] = 1) : 0;
+	ft_strchr(av[i], 'R') ? (dir->options[1] = 1) : 0;
+	ft_strchr(av[i], 'a') ? (dir->options[2] = 1) : 0;
+	ft_strchr(av[i], 'r') ? (dir->options[3] = 1) : 0;
+	ft_strchr(av[i], 't') ? (dir->options[4] = 1) : 0;
+}
+
+void		ft_parse_options(int ac, char **av, t_dir *dir)
 {
 	int i;
 
 	i = 1;
 	while (i < ac && !ft_strequ("--", av[i]) && av[i][0] == '-'
 			&& !ft_strequ("-", av[i]))
-	{
-		ft_strchr(av[i], 'l') ? (dir->options[0] = 1) : 0;
-		ft_strchr(av[i], 'R') ? (dir->options[1] = 1) : 0;
-		ft_strchr(av[i], 'a') ? (dir->options[2] = 1) : 0;
-		ft_strchr(av[i], 'r') ? (dir->options[3] = 1) : 0;
-		ft_strchr(av[i], 't') ? (dir->options[4] = 1) : 0;
-		i++;
-	}
+		ft_parse_helper(i++, av, dir);
 	if (ft_strequ("--", av[i]))
 		i++;
 	if (i == ac || i == ac - 1)

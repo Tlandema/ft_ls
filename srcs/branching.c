@@ -6,27 +6,32 @@
 /*   By: tlandema <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/12 23:04:40 by tlandema          #+#    #+#             */
-/*   Updated: 2019/02/20 16:54:30 by tlandema         ###   ########.fr       */
+/*   Updated: 2019/02/21 02:35:29 by tlandema         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/ft_ls.h"
 
-t_bra       *ft_create_branch(t_dir *dir, char *name)
+t_bra		*ft_create_branch(t_dir *dir, char *name)
 {
-	t_bra   *branch;
-	char    *bad;
+	t_bra	*branch;
+	char	*bad;
 
 	branch = ft_memalloc(sizeof(t_bra));
 	branch->left = NULL;
 	branch->right = NULL;
 	branch->name = ft_strdup(name);
+	if (S_ISDIR(dir->file_info.st_mode) &&
+			!ft_strequ(branch->name, ".") && !ft_strequ(branch->name, ".."))
+		branch->isdir = 'd';
+	else
+		branch->isdir = '0';
 	if (dir->options[4] == 1)
 		branch->time = dir->file_info.st_mtime;
 	if (dir->options[4] == 1)
 		branch->nano_time = dir->file_info.st_mtimespec.tv_nsec;
 	if (dir->options[0] == 1)
-		branch->list = ft_listing(dir, branch->name, 0);
+		branch->list = ft_listing(dir, branch->name);
 	if (!dir->file_info.st_mode && ft_strcmp(branch->name, ".") != 0)
 	{
 		bad = ft_strdup("ls: ");
@@ -40,7 +45,7 @@ t_bra       *ft_create_branch(t_dir *dir, char *name)
 	return (branch);
 }
 
-void        ft_name_branching(t_bra **root, t_dir *dir, char *name)
+void		ft_name_branching(t_bra **root, t_dir *dir, char *name)
 {
 	if (*root == NULL)
 	{
@@ -80,7 +85,15 @@ void		ft_date_branching(t_bra **root, t_dir *dir, char *name)
 	}
 }
 
-void        ft_parse_branch(int i, char **av, t_dir *dir)
+void	ft_name_or_date(char *n_or_d, t_dir *dir, t_bra **use)
+{
+	if (dir->options[4] == 0)
+		ft_name_branching(use, dir, n_or_d);
+	else
+		ft_date_branching(use, dir, n_or_d);
+}
+
+void		ft_parse_branch(int i, char **av, t_dir *dir)
 {
 	while (av[i])
 	{
@@ -91,21 +104,11 @@ void        ft_parse_branch(int i, char **av, t_dir *dir)
 		}
 		lstat(av[i], &dir->file_info);
 		if (S_ISREG(dir->file_info.st_mode) || S_ISLNK(dir->file_info.st_mode))
-		{
-			if (dir->options[4] == 0)
-				ft_name_branching(&dir->file_bra, dir, av[i]);
-			else
-				ft_date_branching(&dir->file_bra, dir, av[i]);
-		}	
-		if (!dir->file_info.st_mode)
+			ft_name_or_date(av[i], dir, &dir->file_bra);
+		else if (!dir->file_info.st_mode)
 			ft_name_branching(&dir->bad_bra, dir, av[i]);
-		if (S_ISDIR(dir->file_info.st_mode))
-		{
-			if (dir->options[4] == 0)
-				ft_name_branching(&dir->dir_bra, dir, av[i]);
-			else
-				ft_date_branching(&dir->dir_bra, dir, av[i]);
-		}
+		else if (S_ISDIR(dir->file_info.st_mode))
+			ft_name_or_date(av[i], dir, &dir->dir_bra);
 		dir->file_info.st_mode = 0;
 		i++;
 	}
