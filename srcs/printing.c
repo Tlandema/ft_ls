@@ -6,7 +6,7 @@
 /*   By: tlandema <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/12 22:59:39 by tlandema          #+#    #+#             */
-/*   Updated: 2019/02/21 04:33:09 by tlandema         ###   ########.fr       */
+/*   Updated: 2019/02/21 07:29:10 by tlandema         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,7 +68,6 @@ void	ft_print_dir(t_dir *dir, t_bra *direc)
 			ft_print_dir(dir, direc->left);
 		if (ft_inside_dir(dir, direc->name) == -1)
 			ft_putstr("shit");
-		ft_putchar('\n');
 		if (direc->right)
 			ft_print_dir(dir, direc->right);
 	}
@@ -78,7 +77,6 @@ void	ft_print_dir(t_dir *dir, t_bra *direc)
 			ft_print_dir(dir, direc->right);
 		if (ft_inside_dir(dir, direc->name) == -1)
 			ft_putstr("shit");
-		ft_putchar('\n');
 		if (direc->left)
 			ft_print_dir(dir, direc->left);
 	}
@@ -86,8 +84,16 @@ void	ft_print_dir(t_dir *dir, t_bra *direc)
 
 void	ft_print_spec(t_dir *dir, char *current)
 {
-	ft_putstr("\n");
-	ft_putstr(current);
-	ft_putstr(":\n");
+	if (!dir->first_dir || (dir->options[1] == 1 && !dir->first_dir))
+	{
+		if (dir->first_stuff != '1')
+			ft_putchar('\n');
+		if (dir->options[1] == 1 && dir->options[0] != 1)
+			ft_putchar('\n');
+		ft_putstr(current);
+		ft_putstr(":\n");
+	}
+	dir->first_stuff = '\0';
+	dir->first_dir = NULL;
 	ft_print_file(dir, dir->in_dir_bra);
 }

@@ -6,7 +6,7 @@
 /*   By: tlandema <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/12 22:26:50 by tlandema          #+#    #+#             */
-/*   Updated: 2019/02/20 23:49:47 by tlandema         ###   ########.fr       */
+/*   Updated: 2019/02/21 05:26:50 by tlandema         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,5 +44,8 @@ void		ft_parse_options(int ac, char **av, t_dir *dir)
 		ft_putchar('\n');
 	}
 	if (dir->dir_bra)
+	{
+		ft_first_dir(dir, dir->dir_bra);
 		ft_print_dir(dir, dir->dir_bra);
+	}
 }

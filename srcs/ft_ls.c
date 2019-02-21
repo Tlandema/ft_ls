@@ -6,7 +6,7 @@
 /*   By: tlandema <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/09 11:37:09 by tlandema          #+#    #+#             */
-/*   Updated: 2019/02/21 03:03:03 by tlandema         ###   ########.fr       */
+/*   Updated: 2019/02/21 06:59:30 by tlandema         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,6 +47,5 @@ int			main(int ac, char **av)
 	init(dir);
 	ft_parse_options(ac, av, dir);
 	free(dir);
-	ft_putstr("\nbah yes, le programme a pas crash.\n");
 	return (0);
 }
