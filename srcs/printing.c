@@ -6,7 +6,7 @@
 /*   By: tlandema <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/12 22:59:39 by tlandema          #+#    #+#             */
-/*   Updated: 2019/02/21 07:29:10 by tlandema         ###   ########.fr       */
+/*   Updated: 2019/02/21 10:51:58 by tlandema         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,6 +93,8 @@ void	ft_print_spec(t_dir *dir, char *current)
 		ft_putstr(current);
 		ft_putstr(":\n");
 	}
+	if (dir->options[0] == 1)
+		ft_printf("total %i\n", dir->blocksize);
 	dir->first_stuff = '\0';
 	dir->first_dir = NULL;
 	ft_print_file(dir, dir->in_dir_bra);

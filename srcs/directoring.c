@@ -6,7 +6,7 @@
 /*   By: tlandema <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/13 14:32:14 by tlandema          #+#    #+#             */
-/*   Updated: 2019/02/21 08:06:15 by tlandema         ###   ########.fr       */
+/*   Updated: 2019/02/21 10:58:56 by tlandema         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,10 @@ int			ft_open_dir(t_dir *dir, char *dir_name)
 		ft_path_forming(dir->path, dir_name, dp->d_name);
 		if (lstat(dir->path, &dir->file_info) == 0)
 			stat(dir->path, &dir->file_info);
-		if ( dp->d_name[0] != '.' ||
+		if (dp->d_name[0] != '.' ||
+				(dp->d_name[0] == '.' && dir->options[2] == 1))
+		dir->blocksize = dir->blocksize + dir->file_info.st_blocks;
+		if (dp->d_name[0] != '.' ||
 				(dp->d_name[0] == '.' && dir->options[2] == 1))
 			ft_name_or_date(dp->d_name, dir, &dir->in_dir_bra);
 	}
@@ -43,6 +46,7 @@ int			ft_open_dir(t_dir *dir, char *dir_name)
 int			ft_inside_dir(t_dir *dir, char *work)
 {
 	dir->in_dir_bra = NULL;
+	dir->blocksize = 0;
 	if (ft_open_dir(dir, work) == -1)
 		return (-1);
 	ft_print_spec(dir, work);

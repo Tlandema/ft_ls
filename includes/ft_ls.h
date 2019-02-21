@@ -6,7 +6,7 @@
 /*   By: tlandema <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/09 12:44:01 by tlandema          #+#    #+#             */
-/*   Updated: 2019/02/21 08:04:45 by tlandema         ###   ########.fr       */
+/*   Updated: 2019/02/21 10:47:56 by tlandema         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,6 +50,7 @@ typedef struct		s_dir
 	char			*dir_path;
 	char			*first_dir;
 	char			first_stuff;
+	int				blocksize;
 }					t_dir;
 
 void				ft_first_dir(t_dir *dir, t_bra *dir_bra);
