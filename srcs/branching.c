@@ -6,16 +6,15 @@
 /*   By: tlandema <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/12 23:04:40 by tlandema          #+#    #+#             */
-/*   Updated: 2019/02/21 02:35:29 by tlandema         ###   ########.fr       */
+/*   Updated: 2019/02/21 04:32:33 by tlandema         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/ft_ls.h"
 
-t_bra		*ft_create_branch(t_dir *dir, char *name)
+t_bra	*ft_create_branch(t_dir *dir, char *name)
 {
 	t_bra	*branch;
-	char	*bad;
 
 	branch = ft_memalloc(sizeof(t_bra));
 	branch->left = NULL;
@@ -33,19 +32,14 @@ t_bra		*ft_create_branch(t_dir *dir, char *name)
 	if (dir->options[0] == 1)
 		branch->list = ft_listing(dir, branch->name);
 	if (!dir->file_info.st_mode && ft_strcmp(branch->name, ".") != 0)
-	{
-		bad = ft_strdup("ls: ");
-		bad = ft_strjoin(bad, branch->name);
-		bad = ft_strjoin(bad, ": No such file or directory\n");
-		branch->display = bad;
-	}
+		ft_print_bad_filler(branch);
 	if (S_ISREG(dir->file_info.st_mode) || S_ISLNK(dir->file_info.st_mode)
 		|| S_ISDIR(dir->file_info.st_mode))
 		branch->display = branch->name;
 	return (branch);
 }
 
-void		ft_name_branching(t_bra **root, t_dir *dir, char *name)
+void	ft_name_branching(t_bra **root, t_dir *dir, char *name)
 {
 	if (*root == NULL)
 	{
@@ -58,7 +52,7 @@ void		ft_name_branching(t_bra **root, t_dir *dir, char *name)
 		ft_name_branching(&(*root)->right, dir, name);
 }
 
-void		ft_date_branching(t_bra **root, t_dir *dir, char *name)
+void	ft_date_branching(t_bra **root, t_dir *dir, char *name)
 {
 	if (*root == NULL)
 	{
@@ -93,7 +87,7 @@ void	ft_name_or_date(char *n_or_d, t_dir *dir, t_bra **use)
 		ft_date_branching(use, dir, n_or_d);
 }
 
-void		ft_parse_branch(int i, char **av, t_dir *dir)
+void	ft_parse_branch(int i, char **av, t_dir *dir)
 {
 	while (av[i])
 	{

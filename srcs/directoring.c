@@ -6,7 +6,7 @@
 /*   By: tlandema <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/13 14:32:14 by tlandema          #+#    #+#             */
-/*   Updated: 2019/02/21 02:52:32 by tlandema         ###   ########.fr       */
+/*   Updated: 2019/02/21 04:36:53 by tlandema         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,9 +32,9 @@ int			ft_open_dir(t_dir *dir, char *dir_name)
 		if (lstat(dir->path, &dir->file_info) == 0)
 			stat(dir->path, &dir->file_info);
 		if (ft_strequ(dp->d_name, ".") || ft_strequ(dp->d_name, "..")
-				||  dp->d_name[0] != '.' ||
+				|| dp->d_name[0] != '.' ||
 				(dp->d_name[0] == '.' && dir->options[2] == 1))
-			dir->options[4] == 1 ? ft_date_branching(&dir->in_dir_bra, dir, dp->d_name) : ft_name_branching(&dir->in_dir_bra, dir, dp->d_name);
+			ft_name_or_date(dp->d_name, dir, &dir->in_dir_bra);
 	}
 	if (closedir(dir->dirp) == -1 || !dir->in_dir_bra)
 		return (-1);
@@ -49,9 +49,9 @@ int			ft_inside_dir(t_dir *dir, char *work)
 	ft_print_spec(dir, work);
 	if (dir->options[1] == 1)
 		ft_recurs(dir->in_dir_bra, dir, work);
-	else 
+	else
 		ft_free(dir->in_dir_bra);
-	return(0);
+	return (0);
 }
 
 void		ft_recurs(t_bra *in_dir_bra, t_dir *dir, char *work)

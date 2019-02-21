@@ -6,15 +6,15 @@
 /*   By: tlandema <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/18 15:01:08 by tlandema          #+#    #+#             */
-/*   Updated: 2019/02/18 16:40:43 by tlandema         ###   ########.fr       */
+/*   Updated: 2019/02/21 04:40:48 by tlandema         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-char    *ft_strrev(char *str)
+char	*ft_strrev(char *str)
 {
-	int             i;
-	int             s;
-	char    		temp;
+	int		i;
+	int		s;
+	char	temp;
 
 	s = 0;
 	i = 0;

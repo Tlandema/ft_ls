@@ -6,11 +6,22 @@
 /*   By: tlandema <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/12 22:59:39 by tlandema          #+#    #+#             */
-/*   Updated: 2019/02/21 02:20:17 by tlandema         ###   ########.fr       */
+/*   Updated: 2019/02/21 04:33:09 by tlandema         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/ft_ls.h"
+
+void	ft_print_bad_filler(t_bra *bad)
+{
+	char *tmp;
+
+	tmp = ft_strdup("ls: ");
+	tmp = ft_strjoin(tmp, bad->name);
+	tmp = ft_strjoin(tmp, ": No such file or directory\n");
+	bad->display = ft_strdup(tmp);
+	free(tmp);
+}
 
 void	ft_print_bad(t_dir *dir, t_bra *bad)
 {
@@ -57,7 +68,6 @@ void	ft_print_dir(t_dir *dir, t_bra *direc)
 			ft_print_dir(dir, direc->left);
 		if (ft_inside_dir(dir, direc->name) == -1)
 			ft_putstr("shit");
-		//ft_open_dir(dir, direc->name);
 		ft_putchar('\n');
 		if (direc->right)
 			ft_print_dir(dir, direc->right);
@@ -68,7 +78,6 @@ void	ft_print_dir(t_dir *dir, t_bra *direc)
 			ft_print_dir(dir, direc->right);
 		if (ft_inside_dir(dir, direc->name) == -1)
 			ft_putstr("shit");
-		//ft_open_dir(dir, direc->name);
 		ft_putchar('\n');
 		if (direc->left)
 			ft_print_dir(dir, direc->left);
