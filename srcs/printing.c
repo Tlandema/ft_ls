@@ -6,7 +6,7 @@
 /*   By: tlandema <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/12 22:59:39 by tlandema          #+#    #+#             */
-/*   Updated: 2019/02/21 11:55:02 by tlandema         ###   ########.fr       */
+/*   Updated: 2019/02/22 02:16:19 by tlandema         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,9 +16,10 @@ void	ft_print_bad_filler(t_bra *bad)
 {
 	char *tmp;
 
-	tmp = ft_strdup("ls: ");
-	tmp = ft_strjoin(tmp, bad->name);
-	tmp = ft_strjoin(tmp, ": No such file or directory\n");
+	tmp = ft_memalloc(PATH_MAX);
+	ft_strcpy(tmp, "ls: ");
+	ft_strcat(tmp, bad->name);
+	ft_strcat(tmp, ": No such file or directory\n");
 	bad->display = ft_strdup(tmp);
 	free(tmp);
 }
@@ -38,11 +39,7 @@ void	ft_print_file(t_dir *dir, t_bra *file)
 	{
 		if (file->left)
 			ft_print_file(dir, file->left);
-		if (dir->options[0] == 1)
-			ft_padding(file->list);
-		ft_printf("%s ", file->display);
-		if (dir->options[0] == 1)
-			ft_putchar('\n');
+		ft_padding(dir, file);
 		if (file->right)
 			ft_print_file(dir, file->right);
 	}
@@ -50,11 +47,7 @@ void	ft_print_file(t_dir *dir, t_bra *file)
 	{
 		if (file->right)
 			ft_print_file(dir, file->right);
-		if (dir->options[0] == 1)
-			ft_padding(file->list);
-		ft_printf("%s ", file->display);
-		if (dir->options[0] == 1)
-			ft_putchar('\n');
+		ft_padding(dir, file);
 		if (file->left)
 			ft_print_file(dir, file->left);
 	}

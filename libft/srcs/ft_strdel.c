@@ -6,7 +6,7 @@
 /*   By: tlandema <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/11/09 10:36:00 by tlandema          #+#    #+#             */
-/*   Updated: 2019/01/05 08:40:01 by tlandema         ###   ########.fr       */
+/*   Updated: 2019/02/22 02:14:01 by tlandema         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,9 +15,8 @@
 
 void	ft_strdel(char **as)
 {
-	if (as)
-	{
-		free(*as);
-		*as = NULL;
-	}
+	if (!as || !*as)
+		return ;
+	free(*as);
+	*as = NULL;
 }

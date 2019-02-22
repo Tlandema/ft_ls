@@ -6,7 +6,7 @@
 /*   By: tlandema <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/17 17:52:50 by tlandema          #+#    #+#             */
-/*   Updated: 2019/02/21 11:00:39 by tlandema         ###   ########.fr       */
+/*   Updated: 2019/02/21 23:01:38 by tlandema         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,15 +70,24 @@ char		*ft_listing(t_dir *dir, char *name)
 {
 	char			*inform;
 
-	name = NULL;
-	inform = ft_memalloc(sizeof(char) * 64);
+	inform = ft_memalloc(sizeof(char) * PATH_MAX);
 	if (S_ISDIR(dir->file_info.st_mode))
 		inform[0] = 'd';
 	else if (S_ISLNK(dir->file_info.st_mode))
 		inform[0] = 'l';
+	else if (S_ISFIFO(dir->file_info.st_mode))
+		inform[0] = 'p';
+	else if (S_ISCHR(dir->file_info.st_mode))
+		inform[0] = 'c';
+	else if (S_ISBLK(dir->file_info.st_mode))
+		inform[0] = 'b';
+	else if (S_ISSOCK(dir->file_info.st_mode))
+		inform[0] = 's';
 	else
 		inform[0] = '-';
 	ft_permissions(dir, inform, 0);
 	ft_fill_inform(dir, inform);
+	ft_strcat(inform, " ");
+	ft_strcat(inform, name); 
 	return (inform);
 }

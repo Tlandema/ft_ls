@@ -6,7 +6,7 @@
 /*   By: tlandema <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/11/07 17:04:57 by tlandema          #+#    #+#             */
-/*   Updated: 2019/02/18 15:04:03 by tlandema         ###   ########.fr       */
+/*   Updated: 2019/02/22 02:08:35 by tlandema         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,7 @@ void				ft_putnstr(char const *s, int n);
 void				ft_big_putnbr(long long int n);
 long double			ft_recursive_power(long double nb, int power);
 int					ft_str_is_digit(char *str);
+char				*ft_strjoinfree(char *s1, char *s2);
 char				*ft_strjoincut(char *str1, char *str2, int c);
 char				*ft_strdup(const char *s1);
 char				*ft_strndup(char *str, size_t n);

@@ -6,7 +6,7 @@
 #    By: tlandema <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/11/07 12:04:00 by tlandema          #+#    #+#              #
-#    Updated: 2019/02/18 15:04:14 by tlandema         ###   ########.fr        #
+#    Updated: 2019/02/22 02:08:02 by tlandema         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -21,6 +21,7 @@ INC = includes
 SRCS_PATH = srcs
 
 SRCS = get_next_line.c \
+	   ft_strjoinfree.c \
 	   ft_strrev.c \
 	   ft_recursive_power.c \
 	   ft_ftoa.c \

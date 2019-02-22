@@ -1,25 +1,23 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   test_size.c                                        :+:      :+:    :+:   */
+/*   ft_strjoinfree.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: tlandema <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/02/13 13:05:23 by tlandema          #+#    #+#             */
-/*   Updated: 2019/02/13 13:05:46 by tlandema         ###   ########.fr       */
+/*   Created: 2019/02/22 02:07:18 by tlandema          #+#    #+#             */
+/*   Updated: 2019/02/22 02:13:02 by tlandema         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <sys/ioctl.h>
-#include <stdio.h>
-#include <unistd.h>
+#include "libft.h"
 
-int main (int argc, char **argv)
+char	*ft_strjoinfree(char *s1, char *s2)
 {
-	struct winsize w;
-	ioctl(STDOUT_FILENO, TIOCGWINSZ, &w);
+	char	*str;
 
-	printf ("lines %d\n", w.ws_row);
-	printf ("columns %d\n", w.ws_col);
-	return 0;  // make sure your main returns int
+	str = ft_strjoin(s1, s2);
+	ft_strdel(&s1);
+	ft_strdel(&s2);
+	return (str);
 }
