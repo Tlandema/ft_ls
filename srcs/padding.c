@@ -5,8 +5,8 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: tlandema <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/02/21 11:24:11 by tlandema          #+#    #+#             */
-/*   Updated: 2019/02/22 01:36:21 by tlandema         ###   ########.fr       */
+/*   Created: 2019/02/23 15:44:37 by tlandema          #+#    #+#             */
+/*   Updated: 2019/02/25 03:27:30 by tlandema         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,28 +16,28 @@
 void	ft_padding(t_dir *dir, t_bra *bra)
 {
 	char	**tab;
-	char	*test;
+	char	*tmp;
 
-	test = ft_strnew(PATH_MAX);
+	tmp = ft_strnew(PATH_MAX);
 	if (dir->options[0] == 1)
 	{
 		tab = ft_strsplit(bra->list, ' ');
 		ft_printf("%s %4s%10s%12s", tab[0], tab[1], tab[2], tab[3]);
-		ft_printf(" %7s %s %s %s %s ", tab[4], tab[5], tab[6], tab[7], tab[8]);
+		ft_printf(" %7s %s %2s %s %s ", tab[4], tab[5], tab[6], tab[7], tab[8]);
+		if (tab[0][0] == 'l')
+		{
+			ft_putstr("-> ");
+			readlink(tab[8], tmp, PATH_MAX);
+			ft_putstr(dir->dir_path);
+			ft_putstr(tmp);
+		}
+		ft_putchar('\n');
 		ft_tabdel(9, &tab);
 	}
 	else
 	{
-		ft_putstr(bra->display);
+		ft_putstr(bra->name);
 		ft_putchar(' ');
 	}
-	if (dir->options[0] == 1 && bra->list[0] == 'l')
-	{
-		readlink(bra->name, test, PATH_MAX);
-		ft_putstr("-> ");
-		ft_putstr(test);
-	}
-	if (dir->options[0] == 1)
-		ft_putchar('\n');
-	free(test);
+	free(tmp);
 }

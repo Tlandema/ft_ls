@@ -6,7 +6,7 @@
 #    By: tlandema <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/11/07 12:04:00 by tlandema          #+#    #+#              #
-#    Updated: 2019/02/22 02:23:07 by tlandema         ###   ########.fr        #
+#    Updated: 2019/02/25 00:54:24 by tlandema         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -24,13 +24,14 @@ INC = includes
 
 SRCS_PATH = srcs
 
-SRCS =	ft_ls.c \
-		listing.c \
-		padding.c \
-		branching.c \
-		directoring.c \
+SRCS =	main.c \
+		error.c \
 		parsing.c \
+		branching.c \
+		listing.c \
 		printing.c \
+		padding.c \
+		directoring.c \
 
 OBJS_PATH = obj
 

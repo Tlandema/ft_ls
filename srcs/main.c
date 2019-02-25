@@ -1,27 +1,27 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_ls.c                                            :+:      :+:    :+:   */
+/*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: tlandema <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/02/09 11:37:09 by tlandema          #+#    #+#             */
-/*   Updated: 2019/02/22 02:25:53 by tlandema         ###   ########.fr       */
+/*   Created: 2019/02/22 18:44:02 by tlandema          #+#    #+#             */
+/*   Updated: 2019/02/25 04:25:49 by tlandema         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/ft_ls.h"
 
-void		ft_first_dir(t_dir *dir, t_bra *dir_bra)
+static void	init(t_dir *dir)
 {
-	if (!dir->bad_bra && !dir->file_bra)
-		dir->first_stuff = '1';
-	if (dir_bra->left)
-		ft_first_dir(dir, dir_bra->left);
-	dir->first_dir = ft_strdup(dir_bra->name);
-	if (dir_bra->right)
-		if (ft_strequ(dir->first_dir, dir_bra->right->name))
-			dir->first_dir = NULL;
+	dir->options = (int *)ft_memalloc(sizeof(int) * 5);
+	dir->path = ft_strnew(PATH_MAX);
+	dir->dir_path = ft_strnew(PATH_MAX);
+	dir->one_dir = 0;
+	dir->file_bra = NULL;
+	dir->bad_bra = NULL;
+	dir->dir_bra = NULL;
+	dir->in_dir_bra = NULL;
 }
 
 void		ft_free(t_bra *to_f)
@@ -32,32 +32,32 @@ void		ft_free(t_bra *to_f)
 		ft_free(to_f->left);
 	if (to_f->right)
 		ft_free(to_f->right);
+	free(to_f->list);
+	to_f->list = NULL;
 	free(to_f->name);
 	to_f->name = NULL;
 	free(to_f);
 	to_f = NULL;
 }
 
-static void	init(t_dir *dir)
+static void	ft_big_free(t_dir *dir)
 {
-	dir->options = ft_memalloc(sizeof(int) * 5);
-	dir->path = ft_strnew(PATH_MAX);
-	dir->dir_path = ft_strnew(PATH_MAX);
-	dir->one_dir = 0;
-	dir->file_bra = NULL;
-	dir->bad_bra = NULL;
-	dir->dir_bra = NULL;
-	dir->in_dir_bra = NULL;
+	if (dir->first_dir)
+		free(dir->first_dir);
+	free(dir->options);
+	free(dir->path);
+	free(dir->dir_path);
+	free(dir);
 }
 
-int			main(int ac, char **av)
+int			main(int argc, char **argv)
 {
-	t_dir *dir;
+	t_dir	*dir;
 
 	dir = NULL;
 	dir = ft_memalloc(sizeof(t_dir));
 	init(dir);
-	ft_parse_options(ac, av, dir);
-	free(dir);
+	ft_parse_options(argc, argv, dir);
+	ft_big_free(dir);
 	return (0);
 }

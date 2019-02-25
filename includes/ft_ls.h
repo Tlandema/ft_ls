@@ -6,7 +6,7 @@
 /*   By: tlandema <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/09 12:44:01 by tlandema          #+#    #+#             */
-/*   Updated: 2019/02/21 21:45:36 by tlandema         ###   ########.fr       */
+/*   Updated: 2019/02/25 01:09:37 by tlandema         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,9 +53,11 @@ typedef struct		s_dir
 	int				blocksize;
 }					t_dir;
 
+void				ft_path_forming(char *path, char *dir_name,
+		char *file_name);
+void				ft_print_error(char *name);
+void				ft_free_list(t_bra *to_f);
 void				ft_padding(t_dir *dir, t_bra *bra);
-//void				ft_padding(char *test);
-void				ft_first_dir(t_dir *dir, t_bra *dir_bra);
 void				ft_print_bad_filler(t_bra *bad);
 void				ft_free(t_bra *to_f);
 void				ft_rollback(t_bra *in_dir_bra, t_dir *dir, char *work);

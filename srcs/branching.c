@@ -5,8 +5,8 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: tlandema <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/02/12 23:04:40 by tlandema          #+#    #+#             */
-/*   Updated: 2019/02/21 22:59:28 by tlandema         ###   ########.fr       */
+/*   Created: 2019/02/22 19:16:05 by tlandema          #+#    #+#             */
+/*   Updated: 2019/02/25 02:40:35 by tlandema         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,14 +14,14 @@
 
 t_bra	*ft_create_branch(t_dir *dir, char *name)
 {
-	t_bra	*branch;
+	t_bra *branch;
 
 	branch = ft_memalloc(sizeof(t_bra));
 	branch->left = NULL;
 	branch->right = NULL;
 	branch->name = ft_strdup(name);
-	if (S_ISDIR(dir->file_info.st_mode) &&
-			!ft_strequ(branch->name, ".") && !ft_strequ(branch->name, ".."))
+	if (S_ISDIR(dir->file_info.st_mode) && !ft_strequ(branch->name, ".")
+			&& !ft_strequ(branch->name, ".."))
 		branch->isdir = 'd';
 	else
 		branch->isdir = '0';
@@ -31,10 +31,10 @@ t_bra	*ft_create_branch(t_dir *dir, char *name)
 		branch->nano_time = dir->file_info.st_mtimespec.tv_nsec;
 	if (dir->options[0] == 1)
 		branch->list = ft_listing(dir, branch->name);
-	if (!dir->file_info.st_mode)
+	if (!dir->file_info.st_mode && !ft_strequ(name, "."))
 		ft_print_bad_filler(branch);
 	if (S_ISREG(dir->file_info.st_mode) || S_ISLNK(dir->file_info.st_mode)
-		|| S_ISDIR(dir->file_info.st_mode))
+			|| S_ISDIR(dir->file_info.st_mode))
 		branch->display = branch->name;
 	return (branch);
 }
@@ -87,22 +87,22 @@ void	ft_name_or_date(char *n_or_d, t_dir *dir, t_bra **use)
 		ft_date_branching(use, dir, n_or_d);
 }
 
-void	ft_parse_branch(int i, char **av, t_dir *dir)
+void	ft_parse_branch(int i, char **argv, t_dir *dir)
 {
-	while (av[i])
+	while (argv[i])
 	{
-		if (!av[i][0])
+		if (!argv[i][0])
 		{
-			ft_printf("ls: fts_open: No such file or directory\n");
+			ft_putstr("ls: fts_open: No such file or directory\n");
 			exit(1);
 		}
-		lstat(av[i], &dir->file_info);
+		lstat(argv[i], &dir->file_info);
 		if (S_ISREG(dir->file_info.st_mode) || S_ISLNK(dir->file_info.st_mode))
-			ft_name_or_date(av[i], dir, &dir->file_bra);
+			ft_name_or_date(argv[i], dir, &dir->file_bra);
 		else if (!dir->file_info.st_mode)
-			ft_name_branching(&dir->bad_bra, dir, av[i]);
+			ft_name_branching(&dir->bad_bra, dir, argv[i]);
 		else if (S_ISDIR(dir->file_info.st_mode))
-			ft_name_or_date(av[i], dir, &dir->dir_bra);
+			ft_name_or_date(argv[i], dir, &dir->dir_bra);
 		dir->file_info.st_mode = 0;
 		i++;
 	}
