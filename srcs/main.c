@@ -6,7 +6,7 @@
 /*   By: tlandema <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/22 18:44:02 by tlandema          #+#    #+#             */
-/*   Updated: 2019/02/25 04:25:49 by tlandema         ###   ########.fr       */
+/*   Updated: 2019/02/26 01:03:54 by tlandema         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,5 +59,6 @@ int			main(int argc, char **argv)
 	init(dir);
 	ft_parse_options(argc, argv, dir);
 	ft_big_free(dir);
+	while(1) { }
 	return (0);
 }

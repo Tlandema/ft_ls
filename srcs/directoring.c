@@ -6,7 +6,7 @@
 /*   By: tlandema <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/23 19:38:42 by tlandema          #+#    #+#             */
-/*   Updated: 2019/02/25 02:42:19 by tlandema         ###   ########.fr       */
+/*   Updated: 2019/02/25 22:58:02 by tlandema         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,8 +15,14 @@
 void		ft_path_forming(char *path, char *dir_name, char *file_name)
 {
 	ft_strcpy(path, dir_name);
-	if (!(ft_strequ(dir_name, "/")))
-		ft_strcat(path, "/");
+	if (!(ft_strrev(path)[0] == '/'))
+	{
+		ft_strrev(path);
+		if (!(ft_strequ(dir_name, "/")))
+			ft_strcat(path, "/");
+	}
+	else
+		ft_strrev(path);
 	ft_strcat(path, file_name);
 }
 

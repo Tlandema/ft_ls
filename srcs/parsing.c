@@ -6,19 +6,34 @@
 /*   By: tlandema <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/22 18:58:06 by tlandema          #+#    #+#             */
-/*   Updated: 2019/02/25 00:35:32 by tlandema         ###   ########.fr       */
+/*   Updated: 2019/02/26 02:10:39 by tlandema         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/ft_ls.h"
 
-static void	ft_parse_helper(int i, char **av, t_dir *dir)
+static void	ft_parse_helper(char *argv, t_dir *dir)
 {
-	ft_strchr(av[i], 'l') ? (dir->options[0] = 1) : 0;
-	ft_strchr(av[i], 'R') ? (dir->options[1] = 1) : 0;
-	ft_strchr(av[i], 'a') ? (dir->options[2] = 1) : 0;
-	ft_strchr(av[i], 'r') ? (dir->options[3] = 1) : 0;
-	ft_strchr(av[i], 't') ? (dir->options[4] = 1) : 0;
+	int i;
+
+	i = 1;
+	ft_strchr(argv, 'l') ? (dir->options[0] = 1) : 0;
+	ft_strchr(argv, 'R') ? (dir->options[1] = 1) : 0;
+	ft_strchr(argv, 'a') ? (dir->options[2] = 1) : 0;
+	ft_strchr(argv, 'r') ? (dir->options[3] = 1) : 0;
+	ft_strchr(argv, 't') ? (dir->options[4] = 1) : 0;
+	while (argv[i])
+	{
+		if (argv[i] != 'l' && argv[i] != 'R' && argv[i] != 'a'
+				&& argv[i] != 'r' && argv[i] != 't')
+		{
+			ft_putstr("ls: illeagl option -- ");
+			ft_putchar(argv[i]);
+			ft_putstr("\nusage: ls [-lRart] [file ...]\n");
+			exit(1);
+		}
+		i++;
+	}
 }
 
 static void	ft_first_dir(t_dir *dir, t_bra *dir_bra)
@@ -42,7 +57,8 @@ static void	ft_parse_helper_2(t_dir *dir)
 {
 	ft_print_file(dir, dir->file_bra);
 	ft_free(dir->file_bra);
-	ft_putchar('\n');
+	if (dir->options[0] == 0)
+		ft_putchar('\n');
 }
 
 void		ft_parse_options(int argc, char **argv, t_dir *dir)
@@ -52,7 +68,7 @@ void		ft_parse_options(int argc, char **argv, t_dir *dir)
 	i = 1;
 	while (i < argc && !ft_strequ(argv[i], "--") && argv[i][0] == '-'
 			&& !ft_strequ(argv[i], "-"))
-		ft_parse_helper(i++, argv, dir);
+		ft_parse_helper(argv[i++], dir);
 	if (ft_strequ(argv[i], "--"))
 		i++;
 	if (i == argc || i == argc - 1)
@@ -69,5 +85,7 @@ void		ft_parse_options(int argc, char **argv, t_dir *dir)
 		if (i == argc | i == argc - 1)
 			ft_first_dir(dir, dir->dir_bra);
 		ft_print_dir(dir, dir->dir_bra);
+		if (dir->options[0] == 0)
+			ft_putchar('\n');
 	}
 }

@@ -6,11 +6,12 @@
 /*   By: tlandema <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/22 21:02:48 by tlandema          #+#    #+#             */
-/*   Updated: 2019/02/25 01:11:56 by tlandema         ###   ########.fr       */
+/*   Updated: 2019/02/26 01:19:17 by tlandema         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/ft_ls.h"
+#include <unistd.h>
 
 void	ft_print_bad_filler(t_bra *bad)
 {
@@ -85,13 +86,13 @@ void	ft_print_dir(t_dir *dir, t_bra *direc)
 void	ft_print_spec(t_dir *dir, char *current)
 {
 	static int i = 0;
-
+	
+	if (i == 1)
+		write(1, "\n\n", 2);
+	i = 1;
 	if (!dir->first_dir || (dir->options[1] == 1 && !dir->first_dir)
 			|| dir->one_dir == 0)
 	{
-		if (i != 0)
-			ft_putchar('\n');
-		i = 1;
 		if (dir->options[1] == 1 && dir->options[0] != 1)
 			ft_putchar('\n');
 		ft_putstr(current);

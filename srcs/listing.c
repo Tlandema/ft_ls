@@ -6,7 +6,7 @@
 /*   By: tlandema <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/22 21:28:12 by tlandema          #+#    #+#             */
-/*   Updated: 2019/02/25 00:29:11 by tlandema         ###   ########.fr       */
+/*   Updated: 2019/02/25 23:05:53 by tlandema         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,6 +75,13 @@ static void	ft_fill_inform(t_dir *dir, char **fill, char *name)
 	fill[5] = ft_strrev(fill[5]);
 	free(tmp);
 	fill[6] = ft_strdup(name);
+	fill[7] = ft_strnew(PATH_MAX);
+	if (S_ISLNK(dir->file_info.st_mode))
+	{
+		readlink(name, fill[7], PATH_MAX);
+		if (fill[7][0] == '\0')
+			readlink(dir->path, fill[7], PATH_MAX);
+	}
 }
 
 static char	*ft_fill_list(char **fill, int i)
@@ -95,14 +102,14 @@ static char	*ft_fill_list(char **fill, int i)
 		i++;
 	}
 	i = 0;
-	display = (char *)ft_memalloc(sizeof(char) * len_max + 8);
+	display = (char *)ft_memalloc(sizeof(char) * len_max + 9);
 	while (fill[i])
 	{
 		ft_strcat(display, fill[i]);
 		ft_strcat(display, " ");
 		i++;
 	}
-	ft_tabdel(7, &fill);
+	ft_tabdel(8, &fill);
 	return (display);
 }
 
@@ -110,7 +117,7 @@ char		*ft_listing(t_dir *dir, char *name)
 {
 	char	**fill;
 
-	fill = (char **)ft_memalloc(sizeof(char *) * 8);
+	fill = (char **)ft_memalloc(sizeof(char *) * 9);
 	fill[0] = (char *)ft_memalloc(sizeof(char) * 11);
 	if (S_ISDIR(dir->file_info.st_mode))
 		fill[0][0] = 'd';
