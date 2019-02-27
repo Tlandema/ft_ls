@@ -6,7 +6,7 @@
 /*   By: tlandema <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/22 19:16:05 by tlandema          #+#    #+#             */
-/*   Updated: 2019/02/25 02:40:35 by tlandema         ###   ########.fr       */
+/*   Updated: 2019/02/26 03:54:02 by tlandema         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,11 +31,6 @@ t_bra	*ft_create_branch(t_dir *dir, char *name)
 		branch->nano_time = dir->file_info.st_mtimespec.tv_nsec;
 	if (dir->options[0] == 1)
 		branch->list = ft_listing(dir, branch->name);
-	if (!dir->file_info.st_mode && !ft_strequ(name, "."))
-		ft_print_bad_filler(branch);
-	if (S_ISREG(dir->file_info.st_mode) || S_ISLNK(dir->file_info.st_mode)
-			|| S_ISDIR(dir->file_info.st_mode))
-		branch->display = branch->name;
 	return (branch);
 }
 

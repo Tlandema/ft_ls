@@ -6,7 +6,7 @@
 /*   By: tlandema <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/09 12:44:01 by tlandema          #+#    #+#             */
-/*   Updated: 2019/02/25 01:09:37 by tlandema         ###   ########.fr       */
+/*   Updated: 2019/02/27 06:41:20 by tlandema         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,6 @@ typedef struct		s_bra
 	struct s_bra	*right;
 	struct s_bra	*left;
 	char			*name;
-	char			*display;
 	long long		time;
 	long long		nano_time;
 	char			*list;
@@ -38,7 +37,7 @@ typedef struct		s_bra
 
 typedef struct		s_dir
 {
-	int				*options;
+	char			*options;
 	int				one_dir;
 	t_bra			*in_dir_bra;
 	t_bra			*file_bra;
@@ -47,14 +46,19 @@ typedef struct		s_dir
 	struct stat		file_info;
 	DIR				*dirp;
 	char			*path;
+	size_t			l_max;
+	size_t			p_max;
+	size_t			g_max;
+	size_t			b_max;
 	char			*dir_path;
 	char			*first_dir;
-	char			first_stuff;
 	int				blocksize;
 }					t_dir;
 
 void				ft_path_forming(char *path, char *dir_name,
 		char *file_name);
+void				ft_dir_len_filler(t_dir *dir);
+void				ft_acl(t_dir *dir, char *perm);
 void				ft_print_error(char *name);
 void				ft_free_list(t_bra *to_f);
 void				ft_padding(t_dir *dir, t_bra *bra);

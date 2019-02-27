@@ -6,7 +6,7 @@
 /*   By: tlandema <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/22 18:44:02 by tlandema          #+#    #+#             */
-/*   Updated: 2019/02/26 01:03:54 by tlandema         ###   ########.fr       */
+/*   Updated: 2019/02/27 06:48:38 by tlandema         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,10 +14,14 @@
 
 static void	init(t_dir *dir)
 {
-	dir->options = (int *)ft_memalloc(sizeof(int) * 5);
+	dir->options = ft_strnew(6);
 	dir->path = ft_strnew(PATH_MAX);
 	dir->dir_path = ft_strnew(PATH_MAX);
 	dir->one_dir = 0;
+	dir->l_max = 0;
+	dir->p_max = 0;
+	dir->g_max = 0;
+	dir->b_max = 0;
 	dir->file_bra = NULL;
 	dir->bad_bra = NULL;
 	dir->dir_bra = NULL;
@@ -59,6 +63,5 @@ int			main(int argc, char **argv)
 	init(dir);
 	ft_parse_options(argc, argv, dir);
 	ft_big_free(dir);
-	while(1) { }
 	return (0);
 }

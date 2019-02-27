@@ -6,7 +6,7 @@
 /*   By: tlandema <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/22 21:02:48 by tlandema          #+#    #+#             */
-/*   Updated: 2019/02/26 01:19:17 by tlandema         ###   ########.fr       */
+/*   Updated: 2019/02/26 04:28:32 by tlandema         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,11 +17,12 @@ void	ft_print_bad_filler(t_bra *bad)
 {
 	char *tmp;
 
-	tmp = ft_memalloc(PATH_MAX);
+	tmp = ft_strnew(PATH_MAX);
 	ft_strcpy(tmp, "ls: ");
 	ft_strcat(tmp, bad->name);
+	free(bad->name);
 	ft_strcat(tmp, ": No such file or directory\n");
-	bad->display = ft_strdup(tmp);
+	bad->name = ft_strdup(tmp);
 	free(tmp);
 }
 
@@ -29,12 +30,12 @@ void	ft_print_bad(t_dir *dir, t_bra *bad)
 {
 	if (bad->left)
 		ft_print_bad(dir, bad->left);
-	ft_putstr(bad->display);
+	ft_print_bad_filler(bad);
+	ft_putstr(bad->name);
 	if (bad->right)
 		ft_print_bad(dir, bad->right);
 	free(bad->list);
 	free(bad->name);
-	free(bad->display);
 	free(bad);
 }
 
@@ -86,8 +87,8 @@ void	ft_print_dir(t_dir *dir, t_bra *direc)
 void	ft_print_spec(t_dir *dir, char *current)
 {
 	static int i = 0;
-	
-	if (i == 1)
+
+	if (i == 1 && dir->options[5] == 0)
 		write(1, "\n\n", 2);
 	i = 1;
 	if (!dir->first_dir || (dir->options[1] == 1 && !dir->first_dir)
@@ -100,7 +101,6 @@ void	ft_print_spec(t_dir *dir, char *current)
 	}
 	if (dir->options[0] == 1)
 		ft_printf("total %i\n", dir->blocksize);
-	dir->first_stuff = '\0';
 	free(dir->first_dir);
 	dir->first_dir = NULL;
 	ft_print_file(dir, dir->in_dir_bra);

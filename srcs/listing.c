@@ -6,7 +6,7 @@
 /*   By: tlandema <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/22 21:28:12 by tlandema          #+#    #+#             */
-/*   Updated: 2019/02/25 23:05:53 by tlandema         ###   ########.fr       */
+/*   Updated: 2019/02/27 02:42:21 by tlandema         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,6 +55,7 @@ static void	ft_permissions(t_dir *dir, char *perm, int i)
 		check = check / 10;
 		i++;
 	}
+	ft_acl(dir, perm);
 }
 
 static void	ft_fill_inform(t_dir *dir, char **fill, char *name)
@@ -74,13 +75,12 @@ static void	ft_fill_inform(t_dir *dir, char **fill, char *name)
 	fill[5] = ft_strdup(&tmp[9]);
 	fill[5] = ft_strrev(fill[5]);
 	free(tmp);
-	fill[6] = ft_strdup(name);
-	fill[7] = ft_strnew(PATH_MAX);
+	fill[6] = ft_strnew(PATH_MAX);
 	if (S_ISLNK(dir->file_info.st_mode))
 	{
-		readlink(name, fill[7], PATH_MAX);
-		if (fill[7][0] == '\0')
-			readlink(dir->path, fill[7], PATH_MAX);
+		readlink(name, fill[6], PATH_MAX);
+		if (fill[6][0] == '\0')
+			readlink(dir->path, fill[6], PATH_MAX);
 	}
 }
 

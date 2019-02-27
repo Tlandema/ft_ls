@@ -6,7 +6,7 @@
 /*   By: tlandema <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/22 18:58:06 by tlandema          #+#    #+#             */
-/*   Updated: 2019/02/26 02:10:39 by tlandema         ###   ########.fr       */
+/*   Updated: 2019/02/26 06:43:32 by tlandema         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,10 +22,11 @@ static void	ft_parse_helper(char *argv, t_dir *dir)
 	ft_strchr(argv, 'a') ? (dir->options[2] = 1) : 0;
 	ft_strchr(argv, 'r') ? (dir->options[3] = 1) : 0;
 	ft_strchr(argv, 't') ? (dir->options[4] = 1) : 0;
+	ft_strchr(argv, '1') ? (dir->options[5] = 1) : 0;
 	while (argv[i])
 	{
 		if (argv[i] != 'l' && argv[i] != 'R' && argv[i] != 'a'
-				&& argv[i] != 'r' && argv[i] != 't')
+				&& argv[i] != 'r' && argv[i] != 't' && argv[i] != '1')
 		{
 			ft_putstr("ls: illeagl option -- ");
 			ft_putchar(argv[i]);
@@ -38,8 +39,6 @@ static void	ft_parse_helper(char *argv, t_dir *dir)
 
 static void	ft_first_dir(t_dir *dir, t_bra *dir_bra)
 {
-	if (!dir->bad_bra && !dir->file_bra)
-		dir->first_stuff = '1';
 	if (dir_bra->left)
 		ft_first_dir(dir, dir_bra->left);
 	dir->first_dir = ft_strdup(dir_bra->name);
@@ -57,7 +56,7 @@ static void	ft_parse_helper_2(t_dir *dir)
 {
 	ft_print_file(dir, dir->file_bra);
 	ft_free(dir->file_bra);
-	if (dir->options[0] == 0)
+	if (dir->options[0] == 0 && dir->options[5] == 0)
 		ft_putchar('\n');
 }
 
@@ -85,7 +84,7 @@ void		ft_parse_options(int argc, char **argv, t_dir *dir)
 		if (i == argc | i == argc - 1)
 			ft_first_dir(dir, dir->dir_bra);
 		ft_print_dir(dir, dir->dir_bra);
-		if (dir->options[0] == 0)
+		if (dir->options[0] == 0 && dir->options[5] == 0)
 			ft_putchar('\n');
 	}
 }

@@ -6,7 +6,7 @@
 #    By: tlandema <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/11/07 12:04:00 by tlandema          #+#    #+#              #
-#    Updated: 2019/02/25 00:54:24 by tlandema         ###   ########.fr        #
+#    Updated: 2019/02/27 01:20:33 by tlandema         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -25,6 +25,7 @@ INC = includes
 SRCS_PATH = srcs
 
 SRCS =	main.c \
+		acl.c \
 		error.c \
 		parsing.c \
 		branching.c \
