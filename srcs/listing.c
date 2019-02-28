@@ -6,7 +6,7 @@
 /*   By: tlandema <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/22 21:28:12 by tlandema          #+#    #+#             */
-/*   Updated: 2019/02/27 02:42:21 by tlandema         ###   ########.fr       */
+/*   Updated: 2019/02/28 17:22:27 by tlandema         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,7 +72,10 @@ static void	ft_fill_inform(t_dir *dir, char **fill, char *name)
 	fill[4] = ft_itoa(dir->file_info.st_size);
 	tmp = ft_strdup(&ctime(&dir->file_info.st_mtimespec.tv_sec)[4]);
 	tmp = ft_strrev(tmp);
-	fill[5] = ft_strdup(&tmp[9]);
+	if (dir->options[7] == 1)
+		fill[5] = ft_strdup(&tmp[1]);
+	else
+		fill[5] = ft_strdup(&tmp[9]);
 	fill[5] = ft_strrev(fill[5]);
 	free(tmp);
 	fill[6] = ft_strnew(PATH_MAX);

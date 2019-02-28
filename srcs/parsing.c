@@ -6,31 +6,43 @@
 /*   By: tlandema <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/22 18:58:06 by tlandema          #+#    #+#             */
-/*   Updated: 2019/02/26 06:43:32 by tlandema         ###   ########.fr       */
+/*   Updated: 2019/02/28 17:23:05 by tlandema         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/ft_ls.h"
 
-static void	ft_parse_helper(char *argv, t_dir *dir)
+static void	ft_parse_helper_helper(char *opt, t_dir *dir, int i)
 {
-	int i;
+	opt[i] == 'l' ? (dir->options[0] = 1) : 0;
+	opt[i] == 'R' ? (dir->options[1] = 1) : 0;
+	opt[i] == 'a' ? (dir->options[2] = 1) : 0;
+	opt[i] == 'r' ? (dir->options[3] = 1) : 0;
+	opt[i] == 't' ? (dir->options[4] = 1) : 0;
+	opt[i] == '1' ? (dir->options[5] = 1) : 0;
+	opt[i] == 'A' ? (dir->options[6] = 1) : 0;
+	opt[i] == 'T' ? (dir->options[7] = 1) : 0;
+	opt[i] == 'l' ? (dir->options[5] = 0) : 0;
+	opt[i] == '1' ? (dir->options[0] = 0) : 0;
+}
 
-	i = 1;
-	ft_strchr(argv, 'l') ? (dir->options[0] = 1) : 0;
-	ft_strchr(argv, 'R') ? (dir->options[1] = 1) : 0;
-	ft_strchr(argv, 'a') ? (dir->options[2] = 1) : 0;
-	ft_strchr(argv, 'r') ? (dir->options[3] = 1) : 0;
-	ft_strchr(argv, 't') ? (dir->options[4] = 1) : 0;
-	ft_strchr(argv, '1') ? (dir->options[5] = 1) : 0;
-	while (argv[i])
+static void	ft_parse_helper(char *opt, t_dir *dir, int i)
+{
+	while (opt[i])
 	{
-		if (argv[i] != 'l' && argv[i] != 'R' && argv[i] != 'a'
-				&& argv[i] != 'r' && argv[i] != 't' && argv[i] != '1')
+		ft_parse_helper_helper(opt, dir, i);
+		i++;
+	}
+	i = 1;
+	while (opt[i])
+	{
+		if (opt[i] != 'l' && opt[i] != 'R' && opt[i] != 'a'
+				&& opt[i] != 'r' && opt[i] != 't' && opt[i] != '1'
+				&& opt[i] != 'A' && opt[i] != 'T')
 		{
 			ft_putstr("ls: illeagl option -- ");
-			ft_putchar(argv[i]);
-			ft_putstr("\nusage: ls [-lRart] [file ...]\n");
+			ft_putchar(opt[i]);
+			ft_putstr("\nusage: ls [-lRAart1T] [file ...]\n");
 			exit(1);
 		}
 		i++;
@@ -54,7 +66,7 @@ static void	ft_first_dir(t_dir *dir, t_bra *dir_bra)
 
 static void	ft_parse_helper_2(t_dir *dir)
 {
-	ft_print_file(dir, dir->file_bra);
+	ft_print_file(dir, dir->file_bra, 0);
 	ft_free(dir->file_bra);
 	if (dir->options[0] == 0 && dir->options[5] == 0)
 		ft_putchar('\n');
@@ -67,7 +79,7 @@ void		ft_parse_options(int argc, char **argv, t_dir *dir)
 	i = 1;
 	while (i < argc && !ft_strequ(argv[i], "--") && argv[i][0] == '-'
 			&& !ft_strequ(argv[i], "-"))
-		ft_parse_helper(argv[i++], dir);
+		ft_parse_helper(argv[i++], dir, 0);
 	if (ft_strequ(argv[i], "--"))
 		i++;
 	if (i == argc || i == argc - 1)

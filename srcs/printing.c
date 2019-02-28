@@ -6,7 +6,7 @@
 /*   By: tlandema <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/22 21:02:48 by tlandema          #+#    #+#             */
-/*   Updated: 2019/02/26 04:28:32 by tlandema         ###   ########.fr       */
+/*   Updated: 2019/02/28 11:36:29 by tlandema         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,24 +39,25 @@ void	ft_print_bad(t_dir *dir, t_bra *bad)
 	free(bad);
 }
 
-void	ft_print_file(t_dir *dir, t_bra *file)
+int		ft_print_file(t_dir *dir, t_bra *file, int j)
 {
 	if (dir->options[3] == 0)
 	{
 		if (file->left)
-			ft_print_file(dir, file->left);
-		ft_padding(dir, file);
+			ft_print_file(dir, file->left, j);
+		j = ft_padding(dir, file, j);
 		if (file->right)
-			ft_print_file(dir, file->right);
+			ft_print_file(dir, file->right, j);
 	}
 	else
 	{
 		if (file->right)
-			ft_print_file(dir, file->right);
-		ft_padding(dir, file);
+			ft_print_file(dir, file->right, j);
+		j = ft_padding(dir, file, j);
 		if (file->left)
-			ft_print_file(dir, file->left);
+			ft_print_file(dir, file->left, j);
 	}
+	return (j);
 }
 
 void	ft_print_dir(t_dir *dir, t_bra *direc)
@@ -84,12 +85,12 @@ void	ft_print_dir(t_dir *dir, t_bra *direc)
 	free(direc);
 }
 
-void	ft_print_spec(t_dir *dir, char *current)
+void	ft_print_spec(t_dir *dir, char *current, int j)
 {
 	static int i = 0;
 
 	if (i == 1 && dir->options[5] == 0)
-		write(1, "\n\n", 2);
+		write(1, "\n", 2);
 	i = 1;
 	if (!dir->first_dir || (dir->options[1] == 1 && !dir->first_dir)
 			|| dir->one_dir == 0)
@@ -103,5 +104,5 @@ void	ft_print_spec(t_dir *dir, char *current)
 		ft_printf("total %i\n", dir->blocksize);
 	free(dir->first_dir);
 	dir->first_dir = NULL;
-	ft_print_file(dir, dir->in_dir_bra);
+	ft_print_file(dir, dir->in_dir_bra, j);
 }

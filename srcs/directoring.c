@@ -6,7 +6,7 @@
 /*   By: tlandema <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/23 19:38:42 by tlandema          #+#    #+#             */
-/*   Updated: 2019/02/27 07:22:09 by tlandema         ###   ########.fr       */
+/*   Updated: 2019/02/28 14:13:40 by tlandema         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,8 +36,10 @@ int			ft_open_dir(t_dir *dir, char *dir_name)
 	{
 		ft_path_forming(dir->path, dir_name, dp->d_name);
 		lstat(dir->path, &dir->file_info);
-		if (dp->d_name[0] != '.' ||
-				(dp->d_name[0] == '.' && dir->options[2] == 1))
+		if ((dp->d_name[0] != '.')
+				|| (dp->d_name[0] == '.' && dir->options[2] == 1)
+				|| (dp->d_name[0] == '.' && dir->options[6] == 1
+					&& dp->d_name[1] && dp->d_name[1] != '.'))
 		{
 			ft_dir_len_filler(dir);
 			dir->blocksize += dir->file_info.st_blocks;
@@ -51,15 +53,19 @@ int			ft_open_dir(t_dir *dir, char *dir_name)
 
 int			ft_inside_dir(t_dir *dir, char *work)
 {
+	int j;
+
+	j = 0;
 	dir->in_dir_bra = NULL;
 	dir->blocksize = 0;
+	dir->n_max = 0;
 	dir->l_max = 0;
 	dir->p_max = 0;
 	dir->g_max = 0;
 	dir->b_max = 0;
 	if (ft_open_dir(dir, work) == -1)
 		return (-1);
-	ft_print_spec(dir, work);
+	ft_print_spec(dir, work, j);
 	if (dir->options[1] == 1)
 	{
 		if (dir->options[3] == 0)

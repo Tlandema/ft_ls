@@ -6,7 +6,7 @@
 /*   By: tlandema <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/22 19:16:05 by tlandema          #+#    #+#             */
-/*   Updated: 2019/02/26 03:54:02 by tlandema         ###   ########.fr       */
+/*   Updated: 2019/02/28 06:17:52 by tlandema         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,9 @@ t_bra	*ft_create_branch(t_dir *dir, char *name)
 	branch->left = NULL;
 	branch->right = NULL;
 	branch->name = ft_strdup(name);
+	branch->color = ft_set_color(dir->file_info.st_mode);
+	if (ft_strlen(name) > dir->n_max)
+		dir->n_max = ft_strlen(name);
 	if (S_ISDIR(dir->file_info.st_mode) && !ft_strequ(branch->name, ".")
 			&& !ft_strequ(branch->name, ".."))
 		branch->isdir = 'd';
@@ -93,7 +96,10 @@ void	ft_parse_branch(int i, char **argv, t_dir *dir)
 		}
 		lstat(argv[i], &dir->file_info);
 		if (S_ISREG(dir->file_info.st_mode) || S_ISLNK(dir->file_info.st_mode))
+		{
+			ft_dir_len_filler(dir);
 			ft_name_or_date(argv[i], dir, &dir->file_bra);
+		}
 		else if (!dir->file_info.st_mode)
 			ft_name_branching(&dir->bad_bra, dir, argv[i]);
 		else if (S_ISDIR(dir->file_info.st_mode))

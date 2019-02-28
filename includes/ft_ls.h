@@ -6,7 +6,7 @@
 /*   By: tlandema <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/09 12:44:01 by tlandema          #+#    #+#             */
-/*   Updated: 2019/02/27 06:41:20 by tlandema         ###   ########.fr       */
+/*   Updated: 2019/02/28 17:40:18 by tlandema         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,7 @@ typedef struct		s_bra
 	long long		time;
 	long long		nano_time;
 	char			*list;
+	char			color;
 	char			isdir;
 }					t_bra;
 
@@ -46,6 +47,7 @@ typedef struct		s_dir
 	struct stat		file_info;
 	DIR				*dirp;
 	char			*path;
+	size_t			n_max;
 	size_t			l_max;
 	size_t			p_max;
 	size_t			g_max;
@@ -55,18 +57,24 @@ typedef struct		s_dir
 	int				blocksize;
 }					t_dir;
 
+void				ft_padding_helper_3(char **tab);
+void				ft_print_lnk(char *link);
+int					ft_pad(int size_max, char color, char *name, int j);
+void				ft_color_file(char c, char *name, int i);
+char				ft_set_color(mode_t info);
+void				ft_color(char **tab, int i);
 void				ft_path_forming(char *path, char *dir_name,
 		char *file_name);
 void				ft_dir_len_filler(t_dir *dir);
 void				ft_acl(t_dir *dir, char *perm);
 void				ft_print_error(char *name);
 void				ft_free_list(t_bra *to_f);
-void				ft_padding(t_dir *dir, t_bra *bra);
+int					ft_padding(t_dir *dir, t_bra *bra, int j);
 void				ft_print_bad_filler(t_bra *bad);
 void				ft_free(t_bra *to_f);
 void				ft_rollback(t_bra *in_dir_bra, t_dir *dir, char *work);
 void				ft_rollfront(t_bra *in_dir_bra, t_dir *dir, char *work);
-void				ft_print_spec(t_dir *dir, char *current);
+void					ft_print_spec(t_dir *dir, char *current, int j);
 int					ft_inside_dir(t_dir *dir, char *work);
 void				ft_name_or_date(char *n_or_d, t_dir *dir, t_bra **use);
 char				*ft_listing(t_dir *dir, char *name);
@@ -77,7 +85,7 @@ void				ft_parse_branch(int i, char **av, t_dir *dir);
 void				ft_print_dir(t_dir *dir, t_bra *bad);
 int					ft_open_dir(t_dir *dir, char *dir_name);
 void				ft_print_bad(t_dir *dir, t_bra *bad);
-void				ft_print_file(t_dir *dir, t_bra *bad);
+int					ft_print_file(t_dir *dir, t_bra *bad, int j);
 void				ft_parse_options(int ac, char **av, t_dir *dir);
 
 #endif

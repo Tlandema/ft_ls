@@ -6,7 +6,7 @@
 /*   By: tlandema <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/22 18:44:02 by tlandema          #+#    #+#             */
-/*   Updated: 2019/02/27 06:48:38 by tlandema         ###   ########.fr       */
+/*   Updated: 2019/02/28 17:05:12 by tlandema         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,10 +14,11 @@
 
 static void	init(t_dir *dir)
 {
-	dir->options = ft_strnew(6);
+	dir->options = ft_strnew(8);
 	dir->path = ft_strnew(PATH_MAX);
 	dir->dir_path = ft_strnew(PATH_MAX);
 	dir->one_dir = 0;
+	dir->n_max = 0;
 	dir->l_max = 0;
 	dir->p_max = 0;
 	dir->g_max = 0;

@@ -6,7 +6,7 @@
 #    By: tlandema <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/11/07 12:04:00 by tlandema          #+#    #+#              #
-#    Updated: 2019/02/27 01:20:33 by tlandema         ###   ########.fr        #
+#    Updated: 2019/02/28 07:11:31 by tlandema         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -25,6 +25,7 @@ INC = includes
 SRCS_PATH = srcs
 
 SRCS =	main.c \
+		color.c \
 		acl.c \
 		error.c \
 		parsing.c \
@@ -32,6 +33,7 @@ SRCS =	main.c \
 		listing.c \
 		printing.c \
 		padding.c \
+		padding2.c \
 		directoring.c \
 
 OBJS_PATH = obj
