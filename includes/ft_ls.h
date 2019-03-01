@@ -6,7 +6,7 @@
 /*   By: tlandema <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/09 12:44:01 by tlandema          #+#    #+#             */
-/*   Updated: 2019/03/01 07:04:43 by tlandema         ###   ########.fr       */
+/*   Updated: 2019/03/01 10:36:12 by tlandema         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,6 +48,7 @@ typedef struct		s_dir
 	struct stat		file_info;
 	DIR				*dirp;
 	char			*path;
+	int				j;
 	size_t			n_max;
 	size_t			l_max;
 	size_t			p_max;
@@ -81,16 +82,16 @@ void				ft_color_file(char c, char *name, int i);
 char				ft_set_color(mode_t info);
 void				ft_color(char **tab, int i);
 
-int					ft_pad(int size_max, char color, char *name, int j);
+int					ft_pad(int size_max, char color, char *name, int counter);
 void				ft_padding_helper_3(char **tab);
-int					ft_padding(t_dir *dir, t_bra *bra, int j);
+void				ft_padding(t_dir *dir, t_bra *bra);
 void				ft_print_lnk(char *link);
-void				ft_print_error(char *name);
+void				ft_print_error(t_dir *dir, t_bra *direc);
 void				ft_print_bad_filler(t_bra *bad);
-void				ft_print_spec(t_dir *dir, char *current, int j);
+void				ft_print_spec(t_dir *dir, char *current);
 void				ft_print_dir(t_dir *dir, t_bra *bad);
 void				ft_print_bad(t_dir *dir, t_bra *bad);
-int					ft_print_file(t_dir *dir, t_bra *bad, int j);
+void				ft_print_file(t_dir *dir, t_bra *bad);
 
 void				ft_parse_branch(int i, char **av, t_dir *dir);
 void				ft_parse_options(int ac, char **av, t_dir *dir);

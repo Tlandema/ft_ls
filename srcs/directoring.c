@@ -6,7 +6,7 @@
 /*   By: tlandema <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/23 19:38:42 by tlandema          #+#    #+#             */
-/*   Updated: 2019/03/01 06:21:57 by tlandema         ###   ########.fr       */
+/*   Updated: 2019/03/01 10:45:33 by tlandema         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,9 +53,7 @@ int			ft_open_dir(t_dir *dir, char *dir_name)
 
 int			ft_inside_dir(t_dir *dir, char *work)
 {
-	int j;
-
-	j = 0;
+	dir->j = 0;
 	dir->in_dir_bra = NULL;
 	dir->blocksize = 0;
 	dir->n_max = 0;
@@ -65,7 +63,7 @@ int			ft_inside_dir(t_dir *dir, char *work)
 	dir->b_max = 0;
 	if (ft_open_dir(dir, work) == -1)
 		return (-1);
-	ft_print_spec(dir, work, j);
+	ft_print_spec(dir, work);
 	if (dir->options[1] == 1)
 	{
 		if (dir->options[3] == 0)
@@ -89,7 +87,7 @@ void		ft_rollback(t_bra *in_dir_bra, t_dir *dir, char *work)
 	{
 		ft_path_forming(dir->dir_path, tmp, in_dir_bra->name);
 		if (ft_inside_dir(dir, dir->dir_path) == -1)
-			ft_print_error(in_dir_bra->name);
+			ft_print_error(dir, in_dir_bra);
 	}
 	if (in_dir_bra->right)
 		ft_rollback(in_dir_bra->right, dir, tmp);
@@ -110,7 +108,7 @@ void		ft_rollfront(t_bra *in_dir_bra, t_dir *dir, char *work)
 	{
 		ft_path_forming(dir->dir_path, tmp, in_dir_bra->name);
 		if (ft_inside_dir(dir, dir->dir_path) == -1)
-			ft_print_error(in_dir_bra->name);
+			ft_print_error(dir, in_dir_bra);
 	}
 	if (in_dir_bra->left)
 		ft_rollfront(in_dir_bra->left, dir, tmp);

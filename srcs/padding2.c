@@ -6,7 +6,7 @@
 /*   By: tlandema <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/28 06:54:44 by tlandema          #+#    #+#             */
-/*   Updated: 2019/02/28 17:32:35 by tlandema         ###   ########.fr       */
+/*   Updated: 2019/03/01 10:13:15 by tlandema         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,7 @@ int			ft_pad(int size_max, char color, char *name, int j)
 	i = (size_tab() / size_max) - 2;
 	while (j < i)
 	{
-		while (k + (int)ft_strlen(name) < size_max + 1)
+		while (k + (int)ft_strlen(name) < size_max)
 		{
 			if (k != size_max - 1)
 				ft_putchar(' ');
@@ -64,5 +64,5 @@ int			ft_pad(int size_max, char color, char *name, int j)
 	}
 	ft_putchar('\n');
 	j = 0;
-	return (j);
+	return (0);
 }

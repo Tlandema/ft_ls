@@ -6,7 +6,7 @@
 /*   By: tlandema <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/22 21:02:48 by tlandema          #+#    #+#             */
-/*   Updated: 2019/02/28 11:36:29 by tlandema         ###   ########.fr       */
+/*   Updated: 2019/03/01 10:44:27 by tlandema         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,25 +39,24 @@ void	ft_print_bad(t_dir *dir, t_bra *bad)
 	free(bad);
 }
 
-int		ft_print_file(t_dir *dir, t_bra *file, int j)
+void	ft_print_file(t_dir *dir, t_bra *file)
 {
 	if (dir->options[3] == 0)
 	{
 		if (file->left)
-			ft_print_file(dir, file->left, j);
-		j = ft_padding(dir, file, j);
+			ft_print_file(dir, file->left);
+		ft_padding(dir, file);
 		if (file->right)
-			ft_print_file(dir, file->right, j);
+			ft_print_file(dir, file->right);
 	}
 	else
 	{
 		if (file->right)
-			ft_print_file(dir, file->right, j);
-		j = ft_padding(dir, file, j);
+			ft_print_file(dir, file->right);
+		ft_padding(dir, file);
 		if (file->left)
-			ft_print_file(dir, file->left, j);
+			ft_print_file(dir, file->left);
 	}
-	return (j);
 }
 
 void	ft_print_dir(t_dir *dir, t_bra *direc)
@@ -67,7 +66,7 @@ void	ft_print_dir(t_dir *dir, t_bra *direc)
 		if (direc->left)
 			ft_print_dir(dir, direc->left);
 		if (ft_inside_dir(dir, direc->name) == -1)
-			ft_print_error(direc->name);
+			ft_print_error(dir, direc);
 		if (direc->right)
 			ft_print_dir(dir, direc->right);
 	}
@@ -76,7 +75,7 @@ void	ft_print_dir(t_dir *dir, t_bra *direc)
 		if (direc->right)
 			ft_print_dir(dir, direc->right);
 		if (ft_inside_dir(dir, direc->name) == -1)
-			ft_print_error(direc->name);
+			ft_print_error(dir, direc);
 		if (direc->left)
 			ft_print_dir(dir, direc->left);
 	}
@@ -85,7 +84,7 @@ void	ft_print_dir(t_dir *dir, t_bra *direc)
 	free(direc);
 }
 
-void	ft_print_spec(t_dir *dir, char *current, int j)
+void	ft_print_spec(t_dir *dir, char *current)
 {
 	static int i = 0;
 
@@ -104,5 +103,5 @@ void	ft_print_spec(t_dir *dir, char *current, int j)
 		ft_printf("total %i\n", dir->blocksize);
 	free(dir->first_dir);
 	dir->first_dir = NULL;
-	ft_print_file(dir, dir->in_dir_bra, j);
+	ft_print_file(dir, dir->in_dir_bra);
 }

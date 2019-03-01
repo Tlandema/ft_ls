@@ -6,7 +6,7 @@
 /*   By: tlandema <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/23 15:44:37 by tlandema          #+#    #+#             */
-/*   Updated: 2019/02/28 17:42:35 by tlandema         ###   ########.fr       */
+/*   Updated: 2019/03/01 10:02:01 by tlandema         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,7 +95,7 @@ static int	ft_count_tab(char **tab)
 	return (i);
 }
 
-int			ft_padding(t_dir *dir, t_bra *bra, int j)
+void		ft_padding(t_dir *dir, t_bra *bra)
 {
 	char	**tab;
 	char	*tmp;
@@ -115,9 +115,8 @@ int			ft_padding(t_dir *dir, t_bra *bra, int j)
 		if (dir->options[5] == 1)
 			ft_color_file(bra->color, bra->name, 1);
 		else
-			j = ft_pad((int)dir->n_max, bra->color, bra->name, j);
+			dir->j = ft_pad((int)dir->n_max, bra->color, bra->name, dir->j);
 		ft_putchar(dir->options[5]);
 	}
 	free(tmp);
-	return (j);
 }

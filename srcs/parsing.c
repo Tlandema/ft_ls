@@ -6,7 +6,7 @@
 /*   By: tlandema <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/22 18:58:06 by tlandema          #+#    #+#             */
-/*   Updated: 2019/03/01 06:23:15 by tlandema         ###   ########.fr       */
+/*   Updated: 2019/03/01 10:14:16 by tlandema         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,7 +69,7 @@ static void	ft_first_dir(t_dir *dir, t_bra *dir_bra)
 
 static void	ft_parse_helper_2(t_dir *dir)
 {
-	ft_print_file(dir, dir->file_bra, 0);
+	ft_print_file(dir, dir->file_bra);
 	ft_free(dir->file_bra);
 	if (dir->options[0] == 0 && dir->options[5] == 0)
 		ft_putchar('\n');
