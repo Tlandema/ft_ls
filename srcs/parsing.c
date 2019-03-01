@@ -6,7 +6,7 @@
 /*   By: tlandema <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/22 18:58:06 by tlandema          #+#    #+#             */
-/*   Updated: 2019/02/28 17:23:05 by tlandema         ###   ########.fr       */
+/*   Updated: 2019/03/01 06:23:15 by tlandema         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,10 +18,13 @@ static void	ft_parse_helper_helper(char *opt, t_dir *dir, int i)
 	opt[i] == 'R' ? (dir->options[1] = 1) : 0;
 	opt[i] == 'a' ? (dir->options[2] = 1) : 0;
 	opt[i] == 'r' ? (dir->options[3] = 1) : 0;
-	opt[i] == 't' ? (dir->options[4] = 1) : 0;
+	if (opt[i] == 't' && dir->options[8] != 1)
+		dir->options[4] = 1;
 	opt[i] == '1' ? (dir->options[5] = 1) : 0;
 	opt[i] == 'A' ? (dir->options[6] = 1) : 0;
 	opt[i] == 'T' ? (dir->options[7] = 1) : 0;
+	opt[i] == 'S' ? (dir->options[8] = 1) : 0;
+	opt[i] == 'S' ? (dir->options[4] = 0) : 0;
 	opt[i] == 'l' ? (dir->options[5] = 0) : 0;
 	opt[i] == '1' ? (dir->options[0] = 0) : 0;
 }
@@ -38,11 +41,11 @@ static void	ft_parse_helper(char *opt, t_dir *dir, int i)
 	{
 		if (opt[i] != 'l' && opt[i] != 'R' && opt[i] != 'a'
 				&& opt[i] != 'r' && opt[i] != 't' && opt[i] != '1'
-				&& opt[i] != 'A' && opt[i] != 'T')
+				&& opt[i] != 'A' && opt[i] != 'T' && opt[i] != 'S')
 		{
 			ft_putstr("ls: illeagl option -- ");
 			ft_putchar(opt[i]);
-			ft_putstr("\nusage: ls [-lRAart1T] [file ...]\n");
+			ft_putstr("\nusage: ls [-lRAart1TS] [file ...]\n");
 			exit(1);
 		}
 		i++;

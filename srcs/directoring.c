@@ -6,7 +6,7 @@
 /*   By: tlandema <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/23 19:38:42 by tlandema          #+#    #+#             */
-/*   Updated: 2019/02/28 14:13:40 by tlandema         ###   ########.fr       */
+/*   Updated: 2019/03/01 06:21:57 by tlandema         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,7 @@ int			ft_open_dir(t_dir *dir, char *dir_name)
 		{
 			ft_dir_len_filler(dir);
 			dir->blocksize += dir->file_info.st_blocks;
-			ft_name_or_date(dp->d_name, dir, &dir->in_dir_bra);
+			ft_na_or_da_or_si(dp->d_name, dir, &dir->in_dir_bra);
 		}
 	}
 	if (closedir(dir->dirp) == -1 || !dir->in_dir_bra)

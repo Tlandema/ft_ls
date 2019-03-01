@@ -6,7 +6,7 @@
 /*   By: tlandema <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/22 19:16:05 by tlandema          #+#    #+#             */
-/*   Updated: 2019/02/28 06:17:52 by tlandema         ###   ########.fr       */
+/*   Updated: 2019/03/01 06:21:08 by tlandema         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,10 +28,12 @@ t_bra	*ft_create_branch(t_dir *dir, char *name)
 		branch->isdir = 'd';
 	else
 		branch->isdir = '0';
+	if (dir->options[8] == 1)
+		branch->size = (long long)dir->file_info.st_size;
 	if (dir->options[4] == 1)
-		branch->time = dir->file_info.st_mtime;
+		branch->time = (long long)dir->file_info.st_mtime;
 	if (dir->options[4] == 1)
-		branch->nano_time = dir->file_info.st_mtimespec.tv_nsec;
+		branch->nano_time = (long long)dir->file_info.st_mtimespec.tv_nsec;
 	if (dir->options[0] == 1)
 		branch->list = ft_listing(dir, branch->name);
 	return (branch);
@@ -77,12 +79,14 @@ void	ft_date_branching(t_bra **root, t_dir *dir, char *name)
 	}
 }
 
-void	ft_name_or_date(char *n_or_d, t_dir *dir, t_bra **use)
+void	ft_na_or_da_or_si(char *n_or_d, t_dir *dir, t_bra **use)
 {
-	if (dir->options[4] == 0)
-		ft_name_branching(use, dir, n_or_d);
-	else
+	if (dir->options[4] == 1)
 		ft_date_branching(use, dir, n_or_d);
+	else if (dir->options[8] == 1)
+		ft_size_branching(use, dir, n_or_d);
+	else
+		ft_name_branching(use, dir, n_or_d);
 }
 
 void	ft_parse_branch(int i, char **argv, t_dir *dir)
@@ -98,12 +102,12 @@ void	ft_parse_branch(int i, char **argv, t_dir *dir)
 		if (S_ISREG(dir->file_info.st_mode) || S_ISLNK(dir->file_info.st_mode))
 		{
 			ft_dir_len_filler(dir);
-			ft_name_or_date(argv[i], dir, &dir->file_bra);
+			ft_na_or_da_or_si(argv[i], dir, &dir->file_bra);
 		}
 		else if (!dir->file_info.st_mode)
 			ft_name_branching(&dir->bad_bra, dir, argv[i]);
 		else if (S_ISDIR(dir->file_info.st_mode))
-			ft_name_or_date(argv[i], dir, &dir->dir_bra);
+			ft_na_or_da_or_si(argv[i], dir, &dir->dir_bra);
 		dir->file_info.st_mode = 0;
 		i++;
 	}

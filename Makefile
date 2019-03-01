@@ -6,7 +6,7 @@
 #    By: tlandema <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/11/07 12:04:00 by tlandema          #+#    #+#              #
-#    Updated: 2019/02/28 07:11:31 by tlandema         ###   ########.fr        #
+#    Updated: 2019/03/01 06:02:51 by tlandema         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -26,7 +26,7 @@ SRCS_PATH = srcs
 
 SRCS =	main.c \
 		color.c \
-		acl.c \
+		acl_and_size.c \
 		error.c \
 		parsing.c \
 		branching.c \
